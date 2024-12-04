@@ -3,17 +3,15 @@ class Solution:
 
         array = []
 
-        count = 1
-        while count <= n:
-
-            if count % 3 == 0 and count % 5 == 0:
+        for i in range(1, n + 1):
+            if i % 3 == 0 and i % 5 == 0:
                 array.append("FizzBuzz")
-            elif count %3 == 0:
+            elif i % 3 == 0:
                 array.append("Fizz")
-            elif count % 5 == 0:
+            elif i % 5 == 0:
                 array.append("Buzz")
             else:
-                array.append(str(count))
-            count += 1
+                array.append(str(i))
+            i += 1
         return array
         
