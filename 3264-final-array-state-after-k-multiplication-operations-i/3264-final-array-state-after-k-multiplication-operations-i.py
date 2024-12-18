@@ -1,26 +1,25 @@
 class Solution:
     def getFinalState(self, nums: List[int], k: int, multiplier: int) -> List[int]:
+
+        import heapq
+
+        pq = []
+
+        for idx, value in enumerate(nums):
+            heappush(pq, (value, idx))
+
+        while k > 0:
+            value, idx = heappop(pq)
+            value *= multiplier
+            heappush(pq, (value, idx))
+            k -= 1
         
-        count = k
+        while pq:
+            value, idx = heappop(pq)
+            nums[idx] = value
 
-        while count > 0:
-            
-            minValue = float('inf')
-            index = 0
-
-            #find min value
-            for i in range(len(nums)):
-                if nums[i] < minValue:
-                    minValue = nums[i]
-                    index = i
-
-            #put back in nums array
-            nums[index] = minValue * multiplier
-
-            #decrease count
-            count -= 1
-        
         return nums
+            
             
 
 
