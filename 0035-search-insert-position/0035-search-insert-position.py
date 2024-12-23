@@ -1,21 +1,22 @@
-class Solution:
-    def searchInsert(self, nums: List[int], target: int) -> int:
+class Solution(object):
+    def searchInsert(self, nums, target):
 
         #binary search
+
         low = 0
         high = len(nums) - 1
 
         while low <= high:
-            mid =((low + high) // 2)
+            mid = (low + high) // 2
 
-            if nums[mid] == target:
+            if target == nums[mid]:
+                #do whatever
                 return mid
-            
-            if nums[mid] < target:
+            elif target > nums[mid]:
+                #do whatever
                 low = mid + 1
-
-            else:
+            elif target < nums[mid]:
+                #do whatever
                 high = mid - 1
-
         return low
         
