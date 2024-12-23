@@ -12,7 +12,7 @@ class Solution:
                 bit2 = nums[i+1].bit_count()
 
                 #check if value is greater and bit count is greater
-                if bit1 == bit2 and nums[i+1] < nums[i]:
+                if (bit1 == bit2) and nums[i+1] < nums[i]:
                     temp = nums[i]
                     nums[i] = nums[i + 1]
                     nums[i + 1] = temp
