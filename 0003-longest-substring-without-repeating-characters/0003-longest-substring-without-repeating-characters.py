@@ -1,20 +1,30 @@
-class Solution(object):
-    def lengthOfLongestSubstring(self, s):
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
 
-        hashy = set()
+        my_dict = dict()
+        maxLength = 0
         left = 0
-        max_length = 0
 
+
+        #Solving using index's
         for right in range(len(s)):
 
-            while s[right] in hashy:
-                hashy.remove(s[left])
-                left += 1
+            #If in dictionary
+            if s[right] in my_dict and my_dict[s[right]] >= left:
+
+                #Move our left pointer to the right of last occurence
+                left = my_dict[s[right]] + 1
+
+            #Update char's last seen index
+            my_dict[s[right]] = right
+
+            #Update our maxLength
+            maxLength = max(maxLength, right - left + 1)
+
+        return maxLength
+
         
-            hashy.add(s[right])
-            max_length = max(max_length, right - left + 1)
-        
-        return max_length
+
 
 
         
