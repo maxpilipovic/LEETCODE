@@ -1,18 +1,30 @@
 class Solution:
     def letterCasePermutation(self, s: str) -> List[str]:
-        output = [""]
+        
+        res = []
+        length = len(s)
 
-        for char in s:
-            temp = []
-            if char.isalpha():
-                for o in output:
-                    temp.append(o + char.lower())
-                    temp.append(o + char.upper())
-            else:
-                for o in output:
-                    temp.append(o + char)
-            output = temp
-        return output
+        def backtrack(i, curr):
+            
+            #Base case
+            if i == length:
+                res.append("".join(curr))
+                return
+
+            #Recursive
+            curr.append(s[i])
+            backtrack(i + 1, curr)
+            curr.pop()
+
+            #Swap case
+            if s[i].isalpha():
+                curr.append(s[i].swapcase())
+                backtrack(i + 1, curr)
+                curr.pop()
+        
+        backtrack(0, [])
+        return res
+
 
 
         
