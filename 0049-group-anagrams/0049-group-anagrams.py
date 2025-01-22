@@ -1,18 +1,17 @@
 class Solution:
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
 
-        #create dict
+        
         my_dict = dict()
 
+        for i in range(len(strs)):
+            sorted_word = ''.join(sorted(strs[i]))
 
-        for i in strs:
-            sorted_word = ''.join(sorted(i))
             if sorted_word in my_dict:
-                #add to list
-                my_dict[sorted_word].append(i)
+                my_dict[sorted_word].append(strs[i])
             else:
-                my_dict[sorted_word] = [i]
+                my_dict[sorted_word] = [strs[i]]
         
-        return list(my_dict.values())
-
+        print(my_dict)
+        return list(my_dict.values()) 
         
