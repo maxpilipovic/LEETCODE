@@ -5,20 +5,50 @@
 #         self.next = next
 class Solution:
     def isPalindrome(self, head: Optional[ListNode]) -> bool:
-
-        curr = head
-        array = []
-
-        while curr != None:
-            array.append(curr.val)
-            curr = curr.next
         
-        reverseArray = list(reversed(array))
-
-        if array == reverseArray:
+        #empty
+        if not head or not head.next:
             return True
-        else:
-            return False
+        
+        #find mid point
+        fast = head
+        slow = head
+        while fast != None and fast.next != None:
+            slow = slow.next
+            fast = fast.next.next
+
+        #reverse first half
+        prev = None
+        curr = head
+        while curr != slow:
+            nxt = curr.next
+            curr.next = prev
+            prev = curr
+            curr = nxt
+
+
+        #handles odd-length (skip middle)
+        #if Fast is None, odd list.
+        if fast:
+            slow = slow.next
+
+        #compare
+        left = prev
+        right = slow 
+        while left and right != None:
+            if left.val != right.val:
+                return False
+            left = left.next
+            right = right.next
+        return True
+
+
+
+
+
+        
+
+        
         
         
 
