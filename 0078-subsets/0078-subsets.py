@@ -4,23 +4,27 @@ class Solution:
         res = []
         curr = []
 
-        def dfs(i):
-            #out-of-bounds
+        def backtrack(i):
+
+            #Base case
             if i >= len(nums):
                 res.append(curr.copy())
-                return curr
+                return
 
+            #Recursive case
 
-            #include one that adds
+            #Keep and backtrack
             curr.append(nums[i])
-            dfs(i + 1)
+            backtrack(i + 1)
 
-            #includ oen that pops
+            #Remove and backtrack
             curr.pop()
-            dfs(i + 1)
-        
-        dfs(0)
+            backtrack(i + 1)
+            
+        backtrack(0)
 
         return res
-        
+
+
+
         
