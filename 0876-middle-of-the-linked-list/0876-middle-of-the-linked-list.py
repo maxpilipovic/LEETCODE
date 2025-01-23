@@ -6,12 +6,15 @@
 class Solution:
     def middleNode(self, head: Optional[ListNode]) -> Optional[ListNode]:
 
-        fast = head
-        slow = head
+        curr = head
+        curr2 = head
 
-        while fast != None and fast.next != None:
-            slow = slow.next
-            fast = fast.next.next
-        return slow
+        while curr2 is not None and curr2.next is not None:
+            curr = curr.next
+            curr2 = curr2.next.next
+
+        return curr
+
+
 
         
