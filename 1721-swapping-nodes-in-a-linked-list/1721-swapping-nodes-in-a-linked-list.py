@@ -6,39 +6,60 @@
 class Solution:
     def swapNodes(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
 
-        #Create OG pointer
+        #Create OG pointer and second pointer for swap
         curr = head
-
-        #Array
-        array = []
-
-        while curr != None:
-            array.append(curr.val)
-            curr = curr.next
+        curr2 = head
         
-        print(array)
+        #Create counter to keep track of left pointer
+        left = k
 
-        #Two pointers
-        left = k - 1
-        right = len(array) - k
+        #Traverse list to find length
+        length = 0
+        while curr != None:
+            curr = curr.next
+            length += 1
+        
+        #End pointer to remove
+        right = length - k + 1
 
-        #####
-        #Make the swap
-        #temp = array[left]
-        #array[left] = array[right]
-        #array[right] = temp
+        #Boolean variables for flags
+        f = False
+        s = False
 
-        #Python swap
-        array[left], array[right] = array[right], array[left]
-
-        #Create new linkedlist and loop
-        dummy = ListNode(0)
-        curr2 = dummy
-
-        for i in range(len(array)):
-            curr2.next = ListNode(array[i])
+        #Traverse list now and swap
+        tick = 0
+        while curr2 != None:
+            tick += 1
+        
+            if tick == left:
+                first = curr2
+                f = True
+            
+            if tick == right:
+                second = curr2
+                right = True
+            
+            if f == True and s == True:
+                break
             curr2 = curr2.next
         
-        return dummy.next
+        #Swap
+        first.val, second.val = second.val, first.val
+        
+        return head
+            
 
+            
+
+        
+
+
+        
+
+            
+            
+
+
+
+        
         
