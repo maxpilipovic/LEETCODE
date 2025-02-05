@@ -1,42 +1,29 @@
 class Solution:
     def minRemoveToMakeValid(self, s: str) -> str:
+        
+        stack = []
         res = []
 
-        #First pass checking for extra ")"
-        openCount = 0
-        for char in s:
-            if char.isalpha():
-                res.append(char)
-            elif char == "(":
-                openCount += 1
-                res.append(char)
-            else:
-                if openCount > 0:
-                    res.append(")")
-                    openCount -= 1
+        for char in range(len(s)):
+            if s[char].isalpha():
+                res.append(s[char])
+            elif s[char] == "(":
+                stack.append(char)
+                res.append(s[char])
+            elif s[char] == ")":
+                if stack and s[stack[-1]] == "(":
+                    stack.pop()
+                    res.append(s[char])
                 else:
-                    continue
+                    stack.append(char)
+                    res.append(s[char])
 
-        #Second pass and add extra "(" 
-        closeCount = 0
-        finalres = []
+        while stack:
+            temp = stack.pop()
+            del res[temp]
 
-        for char in reversed(res):
-            if char.isalpha():
-                finalres.append(char)
-            elif char == ")":
-                closeCount += 1
-                finalres.append(char)
-            elif char == "(":
-                if closeCount > 0:
-                    finalres.append(char)
-                    closeCount -= 1
-                else:
-                    continue
+        return "".join(res)
 
-        #Return
-        return "".join(reversed(finalres))
+                    
 
 
-        
-        
