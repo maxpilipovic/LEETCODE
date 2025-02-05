@@ -5,30 +5,79 @@
 #         self.next = next
 class Solution:
     def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
-
+        
+        #Reverse l1 here
         curr = l1
-        string = ""
+        prev = None
+
         while curr != None:
-            string += str(curr.val)
-            curr = curr.next
-            
+            nxt = curr.next
+            #Changes the link
+            curr.next = prev
+            prev = curr
+            curr = nxt
+        
+        #New Head
+        l1 = prev
 
+        #Reverse l2 here
         curr2 = l2
-        string2 = ""
+        prev2 = None
+
         while curr2 != None:
-            string2 += str(curr2.val)
-            curr2 = curr2.next
+            nxt2 = curr2.next
+            curr2.next = prev2
+            prev2 = curr2
+            curr2 = nxt2
 
-        res = int(string) + int(string2)
+        #New Head
+        l2 = prev2
 
-        #Create our dummy
+        #Basic 2ndGrade Arithmetic
         dummy = ListNode(0)
         curr3 = dummy
+        carry = 0
 
-        for char in str(res):
-            curr3.next = ListNode(int(char))
+
+        while l1 or l2 or carry:
+            
+            #Manage out of bounds
+            integer1 = l1.val if l1 else 0
+            integer2 = l2.val if l2 else 0
+            
+            #Add both integers and carry
+            res = integer1 + integer2 + carry
+
+            #RELOOK AT THIS...
+            carry = res // 10
+            digit = res % 10
+            
+
+            #Create a new node
+            curr3.next = ListNode(digit)
             curr3 = curr3.next
 
-        return dummy.next
+            #Move if they exist
+            if l1: l1 = l1.next
+            if l2: l2 = l2.next
+    
+        #REVERSE AGAIN
+
+        curr = dummy.next
+        prev = None
+
+        while curr != None:
+
+            nxt = curr.next
+            curr.next = prev
+            prev = curr
+            curr = nxt
+        
+        return prev
+
+
+
+
+
 
         
