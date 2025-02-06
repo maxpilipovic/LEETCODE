@@ -1,36 +1,25 @@
 class Solution:
     def permute(self, nums: List[int]) -> List[List[int]]:
 
-        length = len(nums)
-        curr = []
         res = []
+        curr = []
 
         def backtrack():
-            #Base case
-            if len(curr) == length:
+
+            #Base Case
+            if len(nums) == len(curr):
                 res.append(curr.copy())
                 return
-
-            for i in range(length):
-                
-                #Removes duplicates from permutations
+            
+            #Recursive Case
+            for i in range(len(nums)):
                 if nums[i] in curr:
                     continue
-
-                #Append curr
                 curr.append(nums[i])
-
-                #Backtrack
                 backtrack()
-
-                #Pop to go back
                 curr.pop()
-            
+        
         backtrack()
-
         return res
-            
-
-
 
         
