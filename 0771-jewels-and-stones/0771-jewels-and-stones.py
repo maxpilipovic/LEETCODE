@@ -4,9 +4,7 @@ class Solution:
         my_dict = dict()
 
         for i in range(len(jewels)):
-            if jewels[i] in my_dict:
-                my_dict[jewels[i]] += 1
-            else:
+            if jewels[i] not in my_dict:
                 my_dict[jewels[i]] = 1
 
         count = 0
