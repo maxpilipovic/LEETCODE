@@ -7,22 +7,33 @@
 class Solution:
     def isSameTree(self, p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
 
-        #Recursive using backtracking
+        stack = [(p, q)]
 
-        def backtrack(first, second):
+        #While stack is not empty
+        while stack:
+            first, second = stack.pop()
+
+            #If both empty
             if not first and not second:
-                return True
+                continue
 
-            #Base case
+            #If one is empty and the other is not
             if not first or not second:
                 return False
+
             if first.val != second.val:
                 return False
             
-            #Recursive case
-            return backtrack(first.left, second.left) and backtrack(first.right, second.right)
+            stack.append((first.left, second.left))
+            stack.append((first.right, second.right))
 
-        return backtrack(p, q)
+        return True
+            
+
+
+
+
+
 
 
 
