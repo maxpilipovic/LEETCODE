@@ -21,8 +21,15 @@ class Solution:
         for right in range(len(s1), len(s2)):
             #adds 1 to the value of s2[right], default value 0 if not present
             s2_dict[s2[right]] = 1 + s2_dict.get(s2[right], 0)
-            #remove left
-            del s2_dict[s2[left]]
+
+            #REMOVE LEFT
+
+            #decrement left because it could be a duplicate value
+            s2_dict[s2[left]] -= 1
+
+            #check if its a single value, if it is remove it. if not, leave it
+            if s2_dict[s2[left]] == 0:
+                del s2_dict[s2[left]]
 
             #increment left
             left += 1
