@@ -1,31 +1,14 @@
 class Solution:
     def smallestNumber(self, pattern: str) -> str:
         
-        curr = []
-        res = []
-        used = set()
+        res = ""
+        stack = []
 
-        def backtrack(curr):
-            #Base Case
-            if len(curr) == len(pattern) + 1:
-                res.append("".join(map(str, curr)))
-                return 
+        for i, char in enumerate(pattern + "I", 1): #Iterating over pattern + "I" with i and char, starting from 1
+            stack.append(str(i))
 
-            #Recursive Case
-            for num in range(1, 10): #Looks at numbers 1 - 9
-                if num in used:
-                    continue
-                if curr and pattern[len(curr) - 1] == "I" and num < curr[-1]:
-                    continue
-                if curr and pattern[len(curr) - 1] == "D" and num > curr[-1]:
-                    continue
+            while stack and char == "I":
+                res += stack.pop()
 
-                used.add(num)
-                curr.append(num)
-                backtrack(curr)
-                curr.pop()
-                used.remove(num)
+        return res
 
-        backtrack([])
-
-        return res[0]
