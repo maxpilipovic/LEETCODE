@@ -8,26 +8,27 @@ class Solution:
     def smallestFromLeaf(self, root: Optional[TreeNode]) -> str:
         
         res = []
+        stack = [(root, "")]
 
-        def dfs(node, curr):
+        while stack:
+
+            node, curr = stack.pop()
+
+            #Check if null
             if not node:
-                return
-            
-            #Make our ASCII calculation
+                continue
+
             curr = chr(ord('a') + node.val) + curr
 
-            #If its a leaf node
-            if not node.right and not node.left:
+            #Is it a leaf
+            if not node.left and not node.right:
                 res.append(curr)
-                return 
-
-            #Recursive Case
+                continue
+            
+            #Check left and right node
             if node.left:
-                dfs(node.left, curr)
+                stack.append((node.left, curr))
             if node.right:
-                dfs(node.right, curr)
-        
-        dfs(root, "")
+                stack.append((node.right, curr))
 
         return min(res)
-        
