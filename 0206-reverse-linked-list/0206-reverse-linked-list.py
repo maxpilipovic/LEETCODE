@@ -10,10 +10,14 @@ class Solution:
         prev = None
 
         while curr != None:
+
             nxt = curr.next
             curr.next = prev
             prev = curr
             curr = nxt
-
+        
         return prev
+
+
+
         
