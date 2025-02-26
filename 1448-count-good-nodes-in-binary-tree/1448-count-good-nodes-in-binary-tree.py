@@ -21,9 +21,10 @@ class Solution:
             #Update our node.val to compare
             maxVal = max(maxVal, node.val)
             
-            if node.left:
-                stack.append((node.left, maxVal))
+
             if node.right:
                 stack.append((node.right, maxVal))
+            if node.left:
+                stack.append((node.left, maxVal))
 
         return count
