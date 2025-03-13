@@ -3,14 +3,13 @@ class Solution:
         
         hashy = set()
 
-        for i in range(100):
+        for i in range(bound):
             num1 = x ** i
-
-            for j in range(100):
+            for j in range(bound):
                 num2 = y ** j
 
-                total = num1 + num2
-                if total <= bound:
-                    hashy.add(total)
+                ans = num1 + num2
+                if ans <= bound:
+                    hashy.add(ans)
 
         return list(hashy)
