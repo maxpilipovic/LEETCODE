@@ -7,24 +7,29 @@
 class Solution:
     def goodNodes(self, root: TreeNode) -> int:
         
-        count = 0
-        maxVal = root.val
-        stack = [(root, maxVal)]
+        if not root:
+            return 0
+
+        stack = [(root, root.val)]
+        goodNodes = 0
 
         while stack:
 
-            node, maxVal = stack.pop()
+            node, maxNode = stack.pop()
 
-            if node.val >= maxVal:
-                count += 1
+            if node.val >= maxNode:
+                goodNodes += 1
+            
+            maxNode = max(maxNode, node.val)
+            
+            if node.left:
+                stack.append((node.left, maxNode))
+            if node.right:
+                stack.append((node.right, maxNode))
+        
+        return goodNodes
 
-            #Update our node.val to compare
-            maxVal = max(maxVal, node.val)
             
 
-            if node.right:
-                stack.append((node.right, maxVal))
-            if node.left:
-                stack.append((node.left, maxVal))
 
-        return count
+        
