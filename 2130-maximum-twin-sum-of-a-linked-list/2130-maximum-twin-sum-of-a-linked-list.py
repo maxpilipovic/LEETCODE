@@ -6,26 +6,36 @@
 class Solution:
     def pairSum(self, head: Optional[ListNode]) -> int:
 
-        curr = head
-        array = []
         res = 0
 
-        while curr != None:
-            array.append(curr.val)
-            curr = curr.next
+        #Find mid
+        slow = head
+        fast = head
+        prev = None
 
-        #Get our last value in array
-        last = len(array) - 1
+        while fast != None and fast.next != None:
+            prev = slow
+            slow = slow.next
+            fast = fast.next.next
+        
+        slow2 = slow
+        prev.next = None
 
-        #Loop through and check max
-        first = head
+        #Reverse second half
+        prev = None
+        while slow != None:
+            nxt = slow.next
+            slow.next = prev
+            prev = slow
+            slow = nxt
 
-        while first != None:
-            ans = first.val + array[last]
+        curr1 = head
+        curr2 = prev
 
-            res = max(res, ans)
-
-            first = first.next
-            last -= 1
+        while curr2 != None:
+            res = max(res, curr1.val + curr2.val)
+            curr1 = curr1.next
+            curr2 = curr2.next
         
         return res
+        
