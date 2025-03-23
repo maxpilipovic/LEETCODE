@@ -9,21 +9,26 @@ from collections import deque
 class Solution:
     def maxDepth(self, root: Optional[TreeNode]) -> int:
         
-        if not root:
-            return 0
-
-        stack = [(root, 1)]
         maxDepth = 0
 
-        while stack:
-            node, depth = stack.pop()
+        def dfs(node, depth):
+            nonlocal maxDepth
             
-            #Calculate maxDepth
+            if not node:
+                return
+            
             maxDepth = max(maxDepth, depth)
 
             if node.left:
-                stack.append((node.left, depth + 1))
+                node.left = dfs(node.left, depth + 1)
+
             if node.right:
-                stack.append((node.right, depth + 1))
-        
+                node.right = dfs(node.right, depth + 1)
+
+        dfs(root, 1)
+
         return maxDepth
+
+
+
+        
