@@ -1,4 +1,4 @@
-<h2><a href="https://leetcode.com/problems/number-of-recent-calls/">933. Number of Recent Calls</a></h2><h3>Easy</h3><hr><p>You have a <code>RecentCounter</code> class which counts the number of recent requests within a certain time frame.</p>
+<h2><a href="https://leetcode.com/problems/number-of-recent-calls">933. Number of Recent Calls</a></h2><h3>Easy</h3><hr><p>You have a <code>RecentCounter</code> class which counts the number of recent requests within a certain time frame.</p>
 
 <p>Implement the <code>RecentCounter</code> class:</p>
 
