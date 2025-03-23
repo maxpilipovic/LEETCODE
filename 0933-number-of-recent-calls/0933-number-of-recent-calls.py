@@ -3,7 +3,6 @@ class RecentCounter:
 
     def __init__(self):
         self.queue = deque()
-
         
 
     def ping(self, t: int) -> int:
@@ -13,6 +12,7 @@ class RecentCounter:
             self.queue.popleft()
         
         return len(self.queue)
+
 
         
 
