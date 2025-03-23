@@ -11,20 +11,19 @@ class Solution:
         
         if not root:
             return 0
-        queue = deque([(root, 1)])
+
+        stack = [(root, 1)]
         maxDepth = 0
 
-        while queue:
-            length = len(queue)
-            for i in range(length):
-                node, depth = queue.popleft()
-                
-                maxDepth = max(maxDepth, depth)
+        while stack:
+            node, depth = stack.pop()
+            
+            #Calculate maxDepth
+            maxDepth = max(maxDepth, depth)
 
-                if node.left:
-                    queue.append((node.left, depth + 1))
-                if node.right:
-                    queue.append((node.right, depth + 1))
-
+            if node.left:
+                stack.append((node.left, depth + 1))
+            if node.right:
+                stack.append((node.right, depth + 1))
         
-        return depth
+        return maxDepth
