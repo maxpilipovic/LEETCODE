@@ -20,18 +20,16 @@ class Solution:
             
             if node1.val != node2.val:
                 return False
-
-            leftRes = dfs(node1.left, node2.right)
-            if leftRes:
-                return leftRes
             
-            rightRes = dfs(node1.right, node2.left)
-            if rightRes:
-                return rightRes
-            
-            return False
+            #Case 1 - No flip
+            noFlip = dfs(node1.left, node2.left) and dfs(node1.right, node2.right)
 
-        
+            #Case 2 - Flip
+            flip = dfs(node1.left, node2.right) and dfs(node1.right, node2.left)
+
+            return noFlip or flip
+
+
         return dfs(root1, root2)
 
 
