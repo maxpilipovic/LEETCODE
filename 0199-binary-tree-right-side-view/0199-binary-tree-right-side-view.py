@@ -8,12 +8,12 @@
 from collections import deque
 class Solution:
     def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
-
+        
         if not root:
             return []
-            
+
+        queue = deque([(root)])
         res = []
-        queue = deque([root])
 
         while queue:
 
@@ -25,13 +25,12 @@ class Solution:
 
                 if i == length - 1:
                     res.append(node.val)
-
+                
                 if node.left:
                     queue.append(node.left)
                 if node.right:
                     queue.append(node.right)
+        
+        return res
 
-        return res 
-        
-        
         
