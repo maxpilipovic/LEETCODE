@@ -7,34 +7,27 @@
 class Solution:
     def mergeTrees(self, root1: Optional[TreeNode], root2: Optional[TreeNode]) -> Optional[TreeNode]:
         
-        if not root1 and not root2:
-            return None
-        #Create node
-        newNode = TreeNode(0)
+        if not root1:
+            return root2
+        if not root2:
+            return root1
 
-        def dfs(node1, node2, newNode):
+        def dfs(node1, node2):
             
             #If there are two nodes
-            if node1 and node2:
-                newNode.val = node1.val + node2.val
-            elif node1 and not node2:
-                newNode.val = node1.val
-            elif not node1 and node2:
-                newNode.val = node2.val
-            else: 
+            if not node1 and not node2:
                 return None
+            if not node1:
+                return node2
+            if not node2:
+                return node1
+
+            newNode = TreeNode(node1.val + node2.val)
 
             #Recursive
-
-            #Check left
-            if node1 and node1.left or node2 and node2.left:
-                newNode.left = TreeNode(0)
-                dfs(node1.left if node1 else None, node2.left if node2 else None, newNode.left)
+            newNode.left = dfs(node1.left if node1 else None, node2.left if node2 else None)
+            newNode.right = dfs(node1.right if node1 else None, node2.right if node2 else None)
             
-            if node1 and node1.right or node2 and node2.right:
-                newNode.right = TreeNode(0)
-                dfs(node1.right if node1 else None, node2.right if node2 else None, newNode.right)
-            
-        dfs(root1, root2, newNode)
+            return newNode
 
-        return newNode
+        return dfs(root1, root2)
