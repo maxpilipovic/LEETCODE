@@ -1,7 +1,7 @@
 from collections import deque
 class Solution:
     def minReorder(self, n: int, connections: List[List[int]]) -> int:
-        
+        #Stack
         #Step 1. We need to make a adjacency list
         adj = {i: [] for i in range(n)}
 
