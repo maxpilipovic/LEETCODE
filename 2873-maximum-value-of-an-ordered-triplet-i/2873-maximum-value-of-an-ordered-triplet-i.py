@@ -2,20 +2,20 @@ class Solution:
     def maximumTripletValue(self, nums: List[int]) -> int:
 
         maxVal = 0
+        left = nums[0]
 
-        for i in range(len(nums)):
-            for j in range(len(nums)):
-                for k in range(len(nums)):
-                    if i < j < k:
-                        ans = ((nums[i] - nums[j]) * nums[k])
-                        print(ans)
+        for j in range(1, len(nums)):
 
-                        if ans < 0:
-                            ans = 0
-                    
-                        maxVal = max(maxVal, ans)
+            if nums[j] > left:
+                left = nums[j]
+            
+            for k in range(j + 1, len(nums)):
+                ans = ((left - nums[j]) * nums[k])
+                maxVal = max(maxVal, ans)
         
         return maxVal
+                   
+
 
 
         
