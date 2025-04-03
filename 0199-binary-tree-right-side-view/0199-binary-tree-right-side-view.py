@@ -12,7 +12,7 @@ class Solution:
         if not root:
             return []
 
-        queue = deque([(root)])
+        queue = deque([root])
         res = []
 
         while queue:
@@ -32,5 +32,3 @@ class Solution:
                     queue.append(node.right)
         
         return res
-
-        
