@@ -10,18 +10,25 @@ from collections import deque
 from typing import Optional
 class Solution:
     def cloneGraph(self, node: Optional['Node']) -> Optional['Node']:
-        #DFS
-        oldToNew = {}
 
-        def dfs(node):
-            if node in oldToNew:
-                return oldToNew[node]
+        if not node:
+            return None
+            
+        #BFS
+        oldToNew = {node: Node(node.val)}
+        queue = deque([node])
 
-            copy = Node(node.val)
-            oldToNew[node] = copy
+        while queue:
+            curr = queue.popleft()
 
-            for neighbor in node.neighbors:
-                copy.neighbors.append(dfs(neighbor))
-            return copy
+            for neighbor in curr.neighbors:
+                if neighbor not in oldToNew:
+                    oldToNew[neighbor] = Node(neighbor.val)
+                    queue.append(neighbor)
 
-        return dfs(node) if node else None
+                #Append the neighbors to current cloned node
+                oldToNew[curr].neighbors.append(oldToNew[neighbor])
+        
+        return oldToNew[node]
+                
+
