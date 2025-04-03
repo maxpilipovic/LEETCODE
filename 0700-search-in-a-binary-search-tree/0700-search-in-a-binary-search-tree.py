@@ -7,25 +7,21 @@
 class Solution:
     def searchBST(self, root: Optional[TreeNode], val: int) -> Optional[TreeNode]:
 
+
         def dfs(node):
 
-            #Base
             if not node:
                 return None
-
-            #Found it
+            
             if node.val == val:
                 return node
             
-            #Recursive
-            leftResult = dfs(node.left)
+            left_search = dfs(node.left)
 
-            #Check if it exists (Checking if its not none)
-            if leftResult:
-                return leftResult
-            
+            if left_search:
+                return left_search
+
             return dfs(node.right)
-        
-        return dfs(root)
 
+        return dfs(root)
         
