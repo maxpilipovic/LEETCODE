@@ -19,24 +19,24 @@ class Solution:
 
             return graph
 
-        def bfs(graph, src, destination):
-            queue = deque([src])
-            visited = set()
-
-            while queue:
-                node = queue.popleft()
-
-                if node == destination:
-                    return True
-                
-                for neighbor in graph[node]:
-                    if neighbor not in visited:
-                        queue.append(neighbor)
-                        visited.add(neighbor)
+        def dfs(graph, src, destination, visited):
             
+            if src == destination:
+                return True
+
+            visited.add(src)
+
+            if src == destination:
+                return True
+            
+            for neighbor in graph[src]:
+                if neighbor not in visited:
+                    if dfs(graph, neighbor, destination, visited) == True:
+                        return True
+
             return False
 
         graph = adjList(edges)
-        
-        return bfs(graph, source, destination)
+        visited = set()
+        return dfs(graph, source, destination, visited)
         
