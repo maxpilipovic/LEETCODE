@@ -1,3 +1,4 @@
+from collections import deque
 class Solution:
     def allPathsSourceTarget(self, graph: List[List[int]]) -> List[List[int]]:
         #DFS
@@ -12,19 +13,23 @@ class Solution:
 
             return adjList
 
-        def dfs(graph, node, dest, path, res):
-            
-            if node == dest:
-                res.append(path[:]) #Copy of entire path
+        def bfs(adjList, node, dest, path, res):
 
-            
-            for neighbor in graph[node]:
-                dfs(graph, neighbor, dest, path + [neighbor], res)
+            queue = deque([(node, path)])
 
+            while queue:
+                node, path = queue.popleft()
+
+                if node == dest:
+                    res.append(path[:])
+                
+                for neighbor in adjList[node]:
+                    queue.append([neighbor, path + [neighbor]])
+                    
         adjList = adjList(graph)
         dest = len(graph) - 1
         res = []
-        dfs(adjList, 0, dest, [0], res)
+        bfs(adjList, 0, dest, [0], res)
 
         return res
         
