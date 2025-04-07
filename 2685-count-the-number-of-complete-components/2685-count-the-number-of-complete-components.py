@@ -1,7 +1,7 @@
 from collections import deque
 class Solution:
     def countCompleteComponents(self, n: int, edges: List[List[int]]) -> int:
-
+        #DFS
 
         def adjList(edges):
 
@@ -18,24 +18,19 @@ class Solution:
             
             return graph
         
-        def bfs(graph, start, visited):
+        def dfs(graph, start, visited, nodes):
             
-            queue = deque([start])
             visited.add(start)
-            nodes = [start]
-            edgeCount = 0
+            nodes.append(start)
+            edgeCount = len(graph[start])
+            
+            for neighbor in graph[start]:
+                if neighbor not in visited:
+                    edgeCount += dfs(graph, neighbor, visited, nodes)
+            
+            return edgeCount
 
-            while queue:
-                node = queue.popleft()
 
-                for neighbor in graph[node]:
-                    edgeCount += 1
-                    if neighbor not in visited:
-                        visited.add(neighbor)
-                        queue.append(neighbor)
-                        nodes.append(neighbor)
-
-            return nodes, edgeCount // 2 #Since each edge is connected twice
                     
         graph = adjList(edges)
         maxCount = 0
@@ -43,11 +38,12 @@ class Solution:
 
         for node in graph:
             if node not in visited:
+                nodes = []
                 print(node)
-                nodes, edgeCount = bfs(graph, node, visited)
+                edgeCount = dfs(graph, node, visited, nodes)
                 k = len(nodes)
 
-                if edgeCount == (k * (k - 1)) // 2:
+                if edgeCount // 2 == (k * (k - 1)) // 2:
                     maxCount += 1
 
         return maxCount
