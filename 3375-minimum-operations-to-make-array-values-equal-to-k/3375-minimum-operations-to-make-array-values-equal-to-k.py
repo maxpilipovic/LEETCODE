@@ -12,8 +12,6 @@ class Solution:
         hashy = set()
 
         for i in nums:
-            print(i)
             if i > k:
                 hashy.add(i)
-        print(hashy)
         return len(hashy)
