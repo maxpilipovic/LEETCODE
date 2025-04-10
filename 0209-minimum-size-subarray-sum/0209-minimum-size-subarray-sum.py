@@ -1,26 +1,23 @@
 class Solution:
     def minSubArrayLen(self, target: int, nums: List[int]) -> int:
 
-        minimumLength = float('inf')
-        currentStreak = 0
+        res = float('inf')
         left = 0
+        curr = 0
 
         for right in range(len(nums)):
-            #Add each right number
-            currentStreak += nums[right]
+            curr += nums[right]
 
-            while currentStreak >= target:
-                #Calculate index length
+            while curr >= target:
                 length = (right - left) + 1
+                res = min(res, length)
 
-                #Update
-                minimumLength = min(minimumLength, length)
-
-                #Update left pointer and remove from currentStreak
-                currentStreak -= nums[left]
+                curr -= nums[left]
                 left += 1
         
-        return minimumLength if minimumLength != float('inf') else 0
+        return res if res != float('inf') else 0
+
+
 
 
         
