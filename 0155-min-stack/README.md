@@ -1,4 +1,4 @@
-<h2><a href="https://leetcode.com/problems/min-stack/">155. Min Stack</a></h2><h3>Medium</h3><hr><p>Design a stack that supports push, pop, top, and retrieving the minimum element in constant time.</p>
+<h2><a href="https://leetcode.com/problems/min-stack">155. Min Stack</a></h2><h3>Medium</h3><hr><p>Design a stack that supports push, pop, top, and retrieving the minimum element in constant time.</p>
 
 <p>Implement the <code>MinStack</code> class:</p>
 
