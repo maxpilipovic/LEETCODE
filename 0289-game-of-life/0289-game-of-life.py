@@ -3,30 +3,33 @@ class Solution:
         """
         Do not return anything, modify board in-place instead.
         """
-        rows = len(board)
-        cols = len(board[0]) if rows > 0 else 0
 
-        directions = [(-1, -1), (-1, 0), (-1, 1),
-                      (0, -1),          (0, 1),
-                      (1, -1),  (1, 0), (1, 1)]
+        rows = len(board)
+        cols = len(board[0])
+
+        directions = {(-1, 0), (1, 0), (0, -1), (0, 1), (-1, -1), (1, -1), (-1, 1), (1, 1)} #Left, Right, Up, Down, Up-Left, Up-Right, Down-Left, Down-Right
 
         for row in range(rows):
             for col in range(cols):
-                live_neighbors = 0
+                count = 0
+
                 for dr, dc in directions:
-                    nr = row + dr
-                    nc = col + dc
-                    if 0 <= nr < rows and 0 <= nc < cols:
-                        if board[nr][nc] == 1 or board[nr][nc] == -1:
-                            live_neighbors += 1
-                
+                    nr = dr + row
+                    nc = dc + col
+
+                    if 0 <= nr < rows and 0 <= nc < cols and (board[nr][nc] == 1 or board[nr][nc] == -1):
+                         count += 1
+
                 if board[row][col] == 1:
-                    if live_neighbors < 2 or live_neighbors > 3:
-                        board[row][col] = -1
-                else:
-                    if live_neighbors == 3:
-                        board[row][col] = 2
+                    #Do something
+                    if count < 2 or count > 3:
+                        board[row][col] = -1 #Was alive but will die
+                elif board[row][col] == 0:
+                    #Do something
+                    if count == 3:
+                        board[row][col] = 2 #Was dead but will alive
         
+        #Last step. Do final process and change grid
         for row in range(rows):
             for col in range(cols):
                 if board[row][col] == -1:
