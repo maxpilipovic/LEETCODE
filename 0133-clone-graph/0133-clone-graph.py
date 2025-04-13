@@ -10,11 +10,10 @@ from collections import deque
 from typing import Optional
 class Solution:
     def cloneGraph(self, node: Optional['Node']) -> Optional['Node']:
-
+        #BFS
         if not node:
             return None
-            
-        #BFS
+
         oldToNew = {node: Node(node.val)}
         queue = deque([node])
 
