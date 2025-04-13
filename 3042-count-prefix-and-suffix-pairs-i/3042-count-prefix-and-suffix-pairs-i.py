@@ -4,10 +4,23 @@ class Solution:
 
         def isPrefixAndSuffix(prefix, word):
 
-            if word.startswith(prefix) and word.endswith(prefix):
-                return True
+            n = len(prefix)
 
-        hashy = set()
+            if n > len(word):
+                return False
+            
+            #Check prefix
+            for i in range(n):
+                if prefix[i] != word[i]:
+                    return False
+            
+            #Check suffix
+            for i in range(n):
+                if prefix[i] != word[len(word) - n + i]:
+                    return False
+            
+            return True
+
         count = 0
         for i in range(len(words)):
             for j in range(i + 1, len(words)):
