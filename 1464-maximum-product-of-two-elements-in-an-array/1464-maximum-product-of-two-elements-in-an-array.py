@@ -2,11 +2,12 @@ import heapq
 class Solution:
     def maxProduct(self, nums: List[int]) -> int:
         
-        pq = []
+        max1 = 0
+        max2 = 0
 
         for i in nums:
-            heapq.heappush(pq, i)
+            if i >= max1:
+                max2 = max1
+                max1 = i
         
-        largest = heapq.nlargest(2, pq)
-        
-        return (largest[0] - 1) * (largest[1] - 1)
+        return (max1 - 1) * (max2 - 1)
