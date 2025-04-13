@@ -1,41 +1,41 @@
-from collections import deque
+from collections import defaultdict
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
 
-        def buildGraph(numCourses, prerequisites):
-            graph = {i: [] for i in range(numCourses)}
-
-            for crs, pre in prerequisites:
-                graph[crs].append(pre)
+        def adjList(prerequisites):
+            graph = defaultdict(list)
+            
+            for src, prereq in prerequisites:
+                graph[src].append(prereq)
             
             return graph
 
-        def dfs(currNode):
-            #Base Case
-            if currNode in visited:
+        def dfs(node):
+            
+            if node in path:
                 return False
-            
-            if graph[currNode] == []:
+
+            if node in visited:
                 return True
-
-            visited.add(currNode)
-            for neighbor in graph[currNode]:
-                if not dfs(neighbor): return False
             
-            visited.remove(currNode)
-            graph[currNode] = []
+            path.add(node)
+            for neighbor in graph[node]:
+                if dfs(neighbor) == False:
+                    return False
+
+            path.remove(node)
+            visited.add(node)
+
             return True
-
-        graph = buildGraph(numCourses, prerequisites)
+        
+        
+        
+        graph = adjList(prerequisites)
         visited = set()
-        
+        path = set()
+
         for i in range(numCourses):
-            if not dfs(i): return False
-        
+            if not dfs(i):
+                return False
+
         return True
-
-
-        
-
-
-       
