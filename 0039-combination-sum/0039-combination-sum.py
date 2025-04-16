@@ -1,39 +1,30 @@
 class Solution:
     def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
         
-        curr = []
         res = []
-        length = len(candidates)
 
-        #Sort (Avoids duplicates)
-        candidates.sort()
 
-        def backtrack(start):
+        def backtrack(index, curr):
 
-            #Base case
-            current_sum = sum(curr)
-            
-            #Stop unessecary recursion
-            if current_sum > target:
+            #Base Case
+            if sum(curr) > target:
                 return
 
-            #Check if equal to target
-            if current_sum == target:
+            if sum(curr) == target:
                 res.append(curr.copy())
                 return
             
-            #Recursive case
-            for j in range(start, length):
-                
-                #Append
-                curr.append(candidates[j])
-
-                #Backtrack
-                backtrack(j)
-
-                #Pop
-                curr.pop()
+            #Recursive Case
+            if index <= len(candidates) - 1:
+                curr.append(candidates[index])
+                backtrack(index, curr)
             
-        backtrack(0)
+                curr.pop()
+                backtrack(index + 1, curr)
+
+        
+
+
+        backtrack(0, [])
 
         return res
