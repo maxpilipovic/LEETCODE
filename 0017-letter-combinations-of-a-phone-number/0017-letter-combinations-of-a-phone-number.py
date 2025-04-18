@@ -1,31 +1,35 @@
 class Solution:
     def letterCombinations(self, digits: str) -> List[str]:
         
-        #if digits dont exist
         if not digits:
             return []
 
         res = []
-        curr = []
+        graph = {
+            2: ["a", "b", "c"],
+            3: ["d", "e", "f"],
+            4: ["g", "h", "i"],
+            5: ["j", "k", "l"],
+            6: ["m", "n", "o"],
+            7: ["p", "q", "r", "s"],
+            8: ["t", "u", "v"],
+            9: ["w", "x", "y", "z"]
+        }
 
-        my_dict = {2: 'abc', 3: 'def', 4: 'ghi', 5: 'jkl', 6: 'mno', 7: 'pqrs', 8: 'tuv', 9: 'wxyz'}
+        def backtrack(graph, index, curr):
 
-        def backtrack(index):
-
-            #Base case
+            #Base Case
             if index == len(digits):
-                res.append("".join(curr))
+                res.append("".join(curr.copy()))
                 return
 
             #Recursive
-            for letter in my_dict[int(digits[index])]:
-                curr.append(letter)
-                backtrack(index + 1)
+            for neighbor in graph[int(digits[index])]:
+                curr.append(neighbor)
+                backtrack(graph, index + 1, curr)
                 curr.pop()
-
-        backtrack(0)
-        return res
-
-            
-
         
+
+        backtrack(graph, 0, [])
+
+        return res
