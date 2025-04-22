@@ -2,7 +2,7 @@ class Solution:
     def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
 
         #Directed graph
-
+        #Topological sort
         def adjList(prerequisites):
 
             graph = {}
