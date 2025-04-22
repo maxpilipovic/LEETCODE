@@ -1,37 +1,44 @@
 from collections import deque
 class Solution:
     def numIslands(self, grid: List[List[str]]) -> int:
-        
-        islands = 0
+
         rows = len(grid)
         cols = len(grid[0])
-
-        directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
         visited = set()
+        directions =[(0, -1), (0, 1), (-1, 0), (1, 0)] #Up, Down, Left, Right
+        islandCount = 0
 
-        def dfs(r, c):
-            stack = [(r, c)]
-            visited.add((r, c))
 
-            while stack:
-                rowIsland, colIsland = stack.pop()
+        print(rows)
+        print(cols)
 
-                for x, y in directions:
-                    nRowIsland = x + rowIsland
-                    nColIsland = y + colIsland
+        def bfs(row, col, visited, directions):
+            queue = deque()
+            queue.append((row, col, visited))
 
-                    if 0 <= nRowIsland < rows and 0 <= nColIsland < cols and grid[nRowIsland][nColIsland] == '1' and (nRowIsland, nColIsland) not in visited:
-                        stack.append((nRowIsland, nColIsland))
-                        visited.add((nRowIsland, nColIsland))
+            while queue:
+                row, col, visited = queue.pop()
 
-        for r in range(rows):
-            for c in range(cols):
+                for nRow, nCol in directions:
+                    newRow = row + nRow
+                    newCol = col + nCol
 
-                if grid[r][c] == '1' and (r, c) not in visited:
-                    dfs(r, c)
-                    islands += 1
+                    if 0 <= newRow < rows and 0 <= newCol < cols and grid[newRow][newCol] == '1' and (newRow, newCol) not in visited:
+                        visited.add((newRow, newCol))
+                        queue.append((newRow, newCol, visited))
 
-        return islands
+        for row in range(rows):
+            for col in range(cols):
+                if grid[row][col] == '1' and (row, col) not in visited:
+                    print("Getting here")
+                    islandCount += 1
+                    visited.add((row, col))
+                    bfs(row, col, visited, directions)
+
+        return islandCount
+
+        
+
 
 
         
