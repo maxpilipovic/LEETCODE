@@ -6,7 +6,9 @@ class Solution:
         count = 0
 
         def recursive(index):
+            
             nonlocal count
+
             #Base Case
             if index > len(nums) - 1:
                 return
