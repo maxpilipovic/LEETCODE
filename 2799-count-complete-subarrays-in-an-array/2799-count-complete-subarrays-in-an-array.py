@@ -5,13 +5,23 @@ class Solution:
         distinct = len(set(nums))
         count = 0
 
-        for i in range(len(nums)):
+        def recursive(index):
+            nonlocal count
+            #Base Case
+            if index > len(nums) - 1:
+                return
+            
             currSet = set()
-            for j in range(i, len(nums)):
-                
-                currSet.add(nums[j])
+
+            for i in range(index, len(nums)):
+                currSet.add(nums[i])
+
                 if len(currSet) == distinct:
                     count += 1
+            
+            return recursive(index + 1)
+        
+        recursive(0)
         
         return count
 
