@@ -10,26 +10,26 @@ class Solution:
         if not root:
             return 0
 
-        stack = [(root, root.val)]
-        goodNodes = 0
+        res = 1
 
-        while stack:
+        def dfs(node, currMax):
+            nonlocal res
 
-            node, maxNode = stack.pop()
+            #Base Case
+            if not node:
+                return
 
-            if node.val >= maxNode:
-                goodNodes += 1
-            
-            maxNode = max(maxNode, node.val)
-            
+            if node.val >= currMax:
+                res += 1
+                currMax = node.val
+
+            #Recursive
             if node.left:
-                stack.append((node.left, maxNode))
+                dfs(node.left, currMax)
             if node.right:
-                stack.append((node.right, maxNode))
+                dfs(node.right, currMax)
         
-        return goodNodes
+        dfs(root.left, root.val)
+        dfs(root.right, root.val)
 
-            
-
-
-        
+        return res
