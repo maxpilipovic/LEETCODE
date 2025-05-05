@@ -1,5 +1,6 @@
 class Solution:
     def longestCommonSubsequence(self, text1: str, text2: str) -> int:
+        #DP Solution
 
         dp = [[0 for j in range(len(text2) + 1)] for i in range(len(text1) + 1)]
 
