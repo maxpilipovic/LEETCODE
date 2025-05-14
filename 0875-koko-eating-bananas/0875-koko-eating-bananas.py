@@ -1,27 +1,25 @@
 class Solution:
     def minEatingSpeed(self, piles: List[int], h: int) -> int:
 
-        def helper(mid):
-            hours = 0
-            for i in piles:
-                hours += ceil(i / mid)
-
-            return hours <= h
-
-
-
-
         left = 1
         right = max(piles)
-        result = max(piles)
+        res = right
 
         while left <= right:
+            k = (right + left) // 2
+            totalBananas = 0
 
-            mid = (left + right) // 2
-            if helper(mid):
-                result = mid
-                right = mid - 1
+            hours = sum(math.ceil(ban / k) for ban in piles)
+            
+            if hours <= h:
+                #Try something smaller
+                res = k
+                right  = k - 1
             else:
-                left = mid + 1
+                left = k + 1
         
-        return result
+        return res
+
+
+
+        
