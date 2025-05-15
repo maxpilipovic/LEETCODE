@@ -34,7 +34,8 @@ class Solution:
 
             #BFS PART
             for w2, dest in graph[node]:
-                heapq.heappush(minHeap, (w2, dest))
+                if dest not in visited:
+                    heapq.heappush(minHeap, (w2, dest))
 
         return count if len(visited) == len(points) else -1
 
