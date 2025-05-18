@@ -31,10 +31,11 @@ class Solution:
                 return False
             else:
                 #We have two decisions
-                return (
-                    (i1 < len(s1) and s1[i1] == s3[i1 + i2] and backtrack(i1 + 1, i2)) or
-                    (i2 < len(s2) and s2[i2] == s3[i1 + i2] and backtrack(i1, i2 + 1))
-                )
+                option1 = (i1 < len(s1) and s1[i1] == s3[i1 + i2] and backtrack(i1 + 1, i2))
+                option2 = (i2 < len(s2) and s2[i2] == s3[i1 + i2] and backtrack(i1, i2 + 1))
+                dp[(i1, i2)] = option1 or option2
+                return dp[(i1, i2)]
+
         
         return backtrack(0, 0)
             
