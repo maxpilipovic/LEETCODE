@@ -6,40 +6,40 @@
 #         self.right = right
 class Solution:
     def deleteNode(self, root: Optional[TreeNode], key: int) -> Optional[TreeNode]:
-
         if not root:
             return root
 
+        def recursion(node, key):
+
+            if not node:
+                return node
+
+            if key < node.val:
+                node.left = recursion(node.left, key)
+            elif key > node.val:
+                node.right = recursion(node.right, key)
+            else:
+
+                #Case 1 - Node is a leaf
+                if not node.left and not node.right:
+                    return None
+
+                #Case 2 - Node has one child
+                if not node.left or not node.right:
+                    return node.left if node.left else node.right
+
+                #Case 3 - Node has two children
+                temp = node.left
+
+                while temp.right:
+                    temp = temp.right
+                
+                node.val = temp.val
+                node.left = recursion(node.left, temp.val)
+
+            return node
         
-        if key < root.val:
-            root.left = self.deleteNode(root.left, key)
-        
-        elif key > root.val:
-            root.right = self.deleteNode(root.right, key)
-        
-        else: #If its ==
-
-            #Case 1. No children
-            if not root.left and not root.right:
-                return None
-            
-            #Case 2. One child
-
-            if not root.left or not root.right:
-                return root.left if root.left else root.right
-
-            #Case 3. Two children
-
-            #Find the in-order predecessor
-            temp = root.left
-
-            while temp.right:
-                temp = temp.right
-            root.val = temp.val
-            root.left = self.deleteNode(root.left, temp.val)
-        
-        return root
+        return recursion(root, key)
 
 
         
-
