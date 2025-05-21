@@ -1,6 +1,7 @@
 class Solution:
     def rotate(self, matrix: List[List[int]]) -> None:
         
+        #Extra Space
         n = len(matrix)
         newMatrix = [[0] * n for _ in range(n)]
         print(newMatrix)
