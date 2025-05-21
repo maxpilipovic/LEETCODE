@@ -1,19 +1,15 @@
 class Solution:
     def plusOne(self, digits: List[int]) -> List[int]:
         
-        digit = ""
-        print(digits)
-
-        for i in digits:
-            digit += str(i)
         
-        digitVal = int(digit) + 1
-        print(digitVal)
+        for i in range(len(digits) - 1, -1, -1):
 
-        res = []
-        for i in str(digitVal):
-            res.append(int(i))
-        
-        return res
-
+            if digits[i] == 9:
+                digits[i] = 0
+            else:
+                digits[i] += 1
+                return digits
+            
+        digits.insert(0, 1)
+        return digits
         
