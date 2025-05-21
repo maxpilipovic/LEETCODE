@@ -3,18 +3,21 @@ class Solution:
         
         seen = set()
 
-        while n != 1:
-            #If we see a cycle
-            if n in seen:
-                return False
-            seen.add(n)
+        def recursion(num):
 
-            #Calculate digit^2 for each digit in str(n)
-            n = sum(int(digit) ** 2 for digit in str(n))
+            temp = 0
+
+            if num == 1:
+                return True
             
-        return True
+            if num in seen:
+                return False
 
-        
-        
+            seen.add(num)
+            
+            for digit in str(num):
+                temp += int(digit) ** 2
+            
+            return recursion(temp)
 
-        
+        return recursion(str(n))
