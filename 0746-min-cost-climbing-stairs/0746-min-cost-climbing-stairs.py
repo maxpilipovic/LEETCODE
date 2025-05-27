@@ -1,23 +1,18 @@
 class Solution:
     def minCostClimbingStairs(self, cost: List[int]) -> int:
         
-        my_dict = {}
+        dp = {}
 
-        def recursion(i, count):
+        def backtrack(i):
 
-            if i in my_dict:
-                return my_dict[i]
-
-            #Base Case
             if i >= len(cost):
                 return 0
             
-            #Recursive
-            ans = cost[i] + min(recursion(i + 1, count), recursion(i + 2, count))
-            my_dict[i] = ans
+            if i in dp:
+                return dp[i]
 
-            return ans
-        x1 = recursion(0, 0)
-        x2 = recursion(1, 0)
+            dp[i] = cost[i] + min(backtrack(i + 1), backtrack(i + 2))
+            return dp[i]
         
-        return min(x1, x2)
+        return min(backtrack(0), backtrack(1))
+
