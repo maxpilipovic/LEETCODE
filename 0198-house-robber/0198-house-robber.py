@@ -1,30 +1,22 @@
 class Solution:
     def rob(self, nums: List[int]) -> int:
 
+        dp = {}
 
-        my_dict = {}
+        def backtrack(i):
 
-        def robHouse(i):
-
-            #Base Case
-            if i > len(nums) - 1:
+            if i >= len(nums):
                 return 0
-
-            #Recursive WITH DP
-            if i in my_dict:
-                return my_dict[i]
-
-            #Rob
-            robIt = nums[i] + robHouse(i + 2)
-
-            #Skip
-            skipIt = robHouse(i + 1)
             
-            my_dict[i] = max(robIt, skipIt)
+            if i in dp:
+                return dp[i]
 
-            return my_dict[i]
+            rob = nums[i] + backtrack(i + 2)
+            skip = backtrack(i + 1)
 
+            dp[i] = max(rob, skip)
 
-        return robHouse(0)
-        
+            return dp[i]
+
+        return backtrack(0)
         
