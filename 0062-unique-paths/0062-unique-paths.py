@@ -5,27 +5,18 @@ class Solution:
         #m rows
         #n cols
 
-        dp = {}
+        #DYNAMIC PROGRAMMING
 
-        def dfs(row, col):
-            
-            #Base Case [Get to the end [m - 1] [n- 1]]
-            if row == m - 1 and col == n - 1:
-                return 1
-            
-            if (row, col) in dp:
-                return dp[(row, col)]
-            
-            #Bounds
-            if row < 0 or row == m or col < 0 or col == n:
-                return 0
-            
-            #Call dfs
-            dp[(row, col)] = dfs(row + 1, col) + dfs(row, col + 1)
+        row = [1] * n
 
-            return dp[(row, col)]
+        for i in range(m - 1):
+            newRow = [1] * n
+            for j in range(n - 2, -1, -1):
 
-        return dfs(0, 0)
+                newRow[j] = newRow[j + 1] + row[j]
+            row = newRow
+
+        return row[0]
 
 
 
