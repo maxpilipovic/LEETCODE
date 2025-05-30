@@ -1,56 +1,54 @@
 class Solution:
     def eventualSafeNodes(self, graph: List[List[int]]) -> List[int]:
+        
+        
+        def adjList(edges):
 
-        def adjList(graph):
+            graph2 = {}
 
-            adjList = {}
+            for i in range(len(edges)):
+                graph2[i] = []
             
-            for node in range(len(graph)):
-                if node not in adjList:
-                    adjList[node] = []
-                for dest in graph[node]:
-                    adjList[node].append(dest)
+            for edge in range(len(edges)):
+                for i in edges[edge]:
+                    graph2[edge].append(i)
+            
+            return graph2
+        
+        def dfs(node, visited, graph2, path):
 
-            return adjList
-
-        def dfs(node, adjList, visited, res):
+            #CHECKING FOR CYCLES
 
             #Base Case
-            if node in visited: #Found a cycle
+            if node in path:
+                return True
+            
+            if node in visited:
                 return False
             
-            if node in res:
-                return True
+            path.add(node)
 
+            for neighbor in graph2[node]:
+                if dfs(neighbor, visited, graph2, path):
+                    return True
+
+            #We know its safe.
+            path.remove(node)
             visited.add(node)
 
-            #Recursive
-            for neighbor in adjList[node]:
-                if dfs(neighbor, adjList, visited, res) == False:
-                    return False
-            
-            visited.remove(node) #Node is processed
-            res.add(node)
-            return True
+            return False
 
 
-        adjList = adjList(graph)
-        res = set()
 
-        #Adds initial terminal nodes
-        for i in adjList:
-            if adjList[i] == []:
-                res.add(i)
-    
-        for node in range(len(graph)):
-            visited = set()
-            dfs(node, adjList, visited, res)
+
+        graph2 = adjList(graph)
+        res = []
+        visited = set()
+        
+        for node in graph2:
+            #Check if visited?
+            if not dfs(node, visited, graph2, set()):
+                res.append(node)
         
         return sorted(res)
 
-        
-
-    
-
-
-        
