@@ -26,7 +26,7 @@ class Solution:
 
             #Recursive
             for neighbor in adjList[node]:
-                if not dfs(neighbor, adjList, visited, res):
+                if dfs(neighbor, adjList, visited, res) == False:
                     return False
             
             visited.remove(node) #Node is processed
