@@ -1,23 +1,31 @@
-from collections import deque
 class Solution:
     def canVisitAllRooms(self, rooms: List[List[int]]) -> bool:
         
-        #Iterative
-        #DFS
+        def adjList(edges):
 
-        hashy = set([0])
-        stack = [0]
+            graph = {}
 
-        while stack:
-
-            room = stack.pop()
-
-            for key in rooms[room]:
-                if key not in hashy:
-                    hashy.add(key)
-                    stack.append(key)
+            for i in range(len(edges)):
+                graph[i] = rooms[i]
+            
+            return graph
         
-        print(hashy)
-        print(rooms)
-        return True if len(hashy) == len(rooms) else False
+        def dfs(node, visited, graph):
+            
+            #Base Case
+            if node in visited:
+                return
+            #Do we need a base?
 
+            visited.add(node)
+
+            for neighbor in graph[node]:
+                dfs(neighbor, visited, graph)
+
+
+
+        graph = adjList(rooms)
+        visited = set()
+        dfs(0, visited, graph)
+
+        return len(visited) == len(rooms)
