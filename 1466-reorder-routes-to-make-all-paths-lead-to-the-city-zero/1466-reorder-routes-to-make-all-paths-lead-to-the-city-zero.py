@@ -1,30 +1,46 @@
 from collections import deque
 class Solution:
     def minReorder(self, n: int, connections: List[List[int]]) -> int:
-        #Stack
-        #Step 1. We need to make a adjacency list
-        adj = {i: [] for i in range(n)}
-
-        for a, b in connections:
-            adj[a].append((b, 1)) #1 Represents outgoing edge
-            adj[b].append((a, 0)) #0 Represents incoming edge
         
-        print(adj)
+        def adjList(edges, directedEdges):
 
-        stack = [0]
-        visited = set([0])
-        reversals = 0
+            graph = {}
+            
+            for edge in edges:
+                a,b = edge
 
-        while stack:
-            city = stack.pop()
-            print(city)
+                if a not in graph:
+                    graph[a] = []
+                if b not in graph:
+                    graph[b] = []
 
-            for neighbor, needsReversal in adj[city]:
+                graph[a].append(b)
+                graph[b].append(a)
+                directedEdges.add((a, b))
+
+
+            return graph
+        directedEdges = set()
+        graph = adjList(connections, directedEdges)
+
+        res = 0
+        visited = set()
+        print(graph)
+        print(directedEdges)
+
+        queue = deque()
+        queue.append(0)
+        visited.add(0)
+
+        while queue:
+            node = queue.popleft()
+
+            for neighbor in graph[node]:
                 if neighbor not in visited:
+
+                    if (node, neighbor) in directedEdges:
+                        res += 1
+                    queue.append(neighbor)
                     visited.add(neighbor)
-                    stack.append(neighbor)
-                    reversals += needsReversal
         
-        return reversals
-
-
+        return res
