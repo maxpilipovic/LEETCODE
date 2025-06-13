@@ -1,46 +1,49 @@
 class TrieNode:
     def __init__(self):
-        self.children = [None] * 26 #Array from a - z
-        self.endWord = False
+        self.children = {}
+        self.endOfWord = False
+
 
 class Trie:
 
     def __init__(self):
         self.root = TrieNode()
+        
 
     def insert(self, word: str) -> None:
+
         curr = self.root
 
         for char in word:
-            index = ord(char) - ord('a')
-
-            if curr.children[index] is None:
-                curr.children[index] = TrieNode()
-            curr = curr.children[index]
+            if char not in curr.children:
+                #Add
+                curr.children[char] = TrieNode()
+            curr = curr.children[char]
         
-        curr.endWord = True
+        #Add endOfWord flag
+        curr.endOfWord = True
 
     def search(self, word: str) -> bool:
+
         curr = self.root
 
         for char in word:
-            index = ord(char) - ord('a')
-
-            if curr.children[index] is None:
+            if char not in curr.children:
                 return False
-            curr = curr.children[index]
-        return curr.endWord
+            curr = curr.children[char]
+        
+        return curr.endOfWord 
 
     def startsWith(self, prefix: str) -> bool:
         curr = self.root
 
         for char in prefix:
-            index = ord(char) - ord('a')
-            if curr.children[index] is None:
+            if char not in curr.children:
                 return False
-            curr = curr.children[index]
+            curr = curr.children[char]
         
         return True
+        
 
 
 # Your Trie object will be instantiated and called as such:
