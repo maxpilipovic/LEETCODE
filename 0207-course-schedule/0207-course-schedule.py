@@ -1,44 +1,54 @@
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-        
-        #adj matrix
-        def adjMatrix(edges):
-            graph = {i: [] for i in range(numCourses)}
+
+        def adjList(edges):
+
+            graph = {}
 
             for edge in edges:
-
                 a,b = edge
-                
+
+                if a not in graph:
+                    graph[a] = []
+                if b not in graph:
+                    graph[b] = []
+
                 graph[b].append(a)
-
+            
             return graph
-
-        def dfs(node, visited, graph, visiting):
+        
+        def dfs(node, visited, path, graph):
             
-            if node in visiting:
-                return False
-            if node in visited:
+            if node in path: #Cycle detection
                 return True
+
+            if node in visited: #Speed up.
+                return False 
             
-            visiting.add(node)
-            for neighbor in graph[node]:
-                if not dfs(neighbor, visited, graph, visiting):
-                    return False
+            path.add(node)
+
+            for neighbor in graph.get(node, []):
+                if dfs(neighbor, visited, path, graph):
+                    return True
             
-            visiting.remove(node)
+            path.remove(node)
             visited.add(node)
-            return True
-                
+
+            return False
+
+        
+
+        graph = adjList(prerequisites)
         visited = set()
-        graph = adjMatrix(prerequisites)
+
         print(graph)
 
-        for i in range(numCourses):
-            if i not in visited:
-                visiting = set()
-                if not dfs(i, visited, graph, visiting):
-                    return False
+
+        for node in range(numCourses - 1):
+            if dfs(node, visited, set(), graph):
+                return False
         
         return True
 
 
+        
