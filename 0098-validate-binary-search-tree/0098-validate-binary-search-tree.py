@@ -7,24 +7,22 @@
 class Solution:
     def isValidBST(self, root: Optional[TreeNode]) -> bool:
 
-        res = []
+        def dfs(node, low, high):
 
-        def inOrderTraversal(node):
-            
             #Base Case
             if not node:
-                return
-
-            inOrderTraversal(node.left)
+                return True
             
-            res.append(node.val)
-
-            inOrderTraversal(node.right)
-
-        inOrderTraversal(root)
-        print(res)
-        for i in range(len(res) - 1):
-            if res[i] >= res[i+1]:
+            if not (low < node.val < high):
                 return False
+            
+            return (
+                dfs(node.left, low, node.val) and dfs(node.right, node.val, high)
 
-        return True        
+                )
+
+
+        return dfs(root, float('-inf'), float('inf'))
+
+
+        
