@@ -1,23 +1,21 @@
 class Solution:
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
         
-        my_dict = {}
         res = []
+        my_dict = {}
 
-        for word in strs:
-            listWord = list(word)
-            listWord.sort()
-            
-            sortedWord = "".join(listWord)
-            print(sortedWord)
+        for i in strs:
+            sortedi = list(i)
+            sortedi.sort()
+            print(sortedi)
 
-            if sortedWord not in my_dict:
-                my_dict[sortedWord] = []
-                my_dict[sortedWord].append(word)
+            if str(sortedi) not in my_dict:
+                my_dict[str(sortedi)] = []
+                my_dict[str(sortedi)].append(i)
             else:
-                my_dict[sortedWord].append(word)
-        
+                my_dict[str(sortedi)].append(i)
+
         for value in my_dict.values():
-            res.append(value)
-    
-        return res
+            res.append(value)     
+
+        return res       
