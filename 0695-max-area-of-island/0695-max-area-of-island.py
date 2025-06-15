@@ -1,44 +1,44 @@
 from collections import deque
 class Solution:
     def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
-
+        
         rows = len(grid)
         cols = len(grid[0])
+        directions = [(0, -1), (0, 1), (1, 0), (-1, 0)] #Up, Down, Right, Left
         visited = set()
-        directions = [(0, -1), (0, 1), (-1, 0), (1, 0)] #Up, Down, Right, Left
-        print(rows)
-        print(cols)
         maxCount = 0
 
-        def dfs(row, col, visited, maxCount):
-            stack = []
-            stack.append((row, col, visited))
-            visited.add((row, col))
-            count = 1
+        def bfs(r, c, visited, directions):
 
-            while stack:
+            queue = deque()
+            queue.append((r, c))
+            visited.add((r, c))
+            area = 1
 
-                row, col, visited = stack.pop()
+            while queue:
+                row, col = queue.popleft()
+
+                #Check count?
 
                 for nr, nc in directions:
+
                     newRow = nr + row
                     newCol = nc + col
 
+                    #Check bounds
                     if 0 <= newRow < rows and 0 <= newCol < cols and grid[newRow][newCol] == 1 and (newRow, newCol) not in visited:
-                        count += 1
+                        queue.append((newRow, newCol))
                         visited.add((newRow, newCol))
-                        stack.append((newRow, newCol, visited))
+                        area += 1
             
-            return count
+            return area
+
+
 
         for row in range(rows):
             for col in range(cols):
                 if grid[row][col] == 1 and (row, col) not in visited:
-                    count = dfs(row, col, visited, maxCount)
-                    maxCount = max(maxCount, count)
-        
+                    x = bfs(row, col, visited, directions)
+                    maxCount = max(maxCount, x)
+
         return maxCount
-
-
-        
-                
