@@ -56,8 +56,6 @@ class Solution:
                     backtrack(row + 1)
                     board[row][col] = "."
 
-
-        
         backtrack(0)
 
         return res
