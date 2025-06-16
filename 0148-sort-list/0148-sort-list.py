@@ -5,26 +5,25 @@
 #         self.next = next
 class Solution:
     def sortList(self, head: Optional[ListNode]) -> Optional[ListNode]:
-
+        
         curr = head
         array = []
 
-        #Loop through linkedlist
-        while curr is not None:
+        while curr != None:
             array.append(curr.val)
             curr = curr.next
         
-        #Sort
+        print(array)
         array.sort()
+        print(array)
 
-        #Create dummy node and loop through
         dummy = ListNode(0)
-        curr2 = dummy
+        curr = dummy
 
-        #Loop through and create new linked list with sorted values
         for i in array:
-            curr2.next = ListNode(i)
-            curr2 = curr2.next
+            curr.next = ListNode(i)
+            curr = curr.next
         
         return dummy.next
+
         
