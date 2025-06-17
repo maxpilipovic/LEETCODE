@@ -4,32 +4,20 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
-from collections import deque
 class Solution:
     def isSymmetric(self, root: Optional[TreeNode]) -> bool:
 
-        #Empty case here
-        if not root:
-            return True
 
-        queue = deque([(root.left, root.right)])
-
-        while queue:
-
-            left, right = queue.popleft()
-
-            if not left and not right:
-                continue
-
-            if not left or not right or left.val != right.val:
+        def dfs(n1, n2):
+            
+            #Base Case
+            if not n1 and not n2:
+                return True
+            if not n1 or not n2:
                 return False
             
-            
-            queue.append((left.left, right.right))
-            queue.append((left.right, right.left))
+            #Symetric
+            #AND 
+            return (n1.val == n2.val and dfs(n1.left, n2.right) and dfs(n1.right, n2.left))
 
-
-        return True
-
-        
-        
+        return dfs(root.left, root.right)
