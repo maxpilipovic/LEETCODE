@@ -1,30 +1,39 @@
 class Solution:
     def findJudge(self, n: int, trust: List[List[int]]) -> int:
         
-        def adjList(array):
-            
+        def adjList(edges):
+
             graph = {}
+            
+            #Build nodes first
+            for i in range(1, n+1):
+                graph[i] = []
 
-            for i in array:
-                a,b = i
+            for edge in edges:
+                a,b = edge
 
-                if a not in graph:
-                    graph[a] = []
-                
                 graph[a].append(b)
             
             return graph
         
+        res = []
         graph = adjList(trust)
-        trust = [0] * n
+        print(graph)
 
-        for node in graph:
-            for neighbor in graph[node]:
-                trust[neighbor - 1] += 1
-                trust[node - 1] -= 1
+        for key in graph:
+            if graph[key] == []:
+                res.append(key)
+
         
-        for i in range(n):
-            if trust[i] == n - 1:
-                return i + 1
+        for judge in res:
+            count = 0
+            for a,b in trust:
+                if judge == b:
+                    count += 1
+
+            if n-1 == count:
+                return judge
         
         return -1
+        print(res)
+        
