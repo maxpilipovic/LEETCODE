@@ -1,25 +1,34 @@
 class Solution:
     def findAnagrams(self, s: str, p: str) -> List[int]:
 
-        left = 0
         length = len(p)
-        currWindow = []
+
+        p_count = Counter(p)
+        s_count = Counter(s[:len(p) - 1])
         res = []
+        left = 0
 
-        for right in range(len(s)):
-            currWindow.append(s[right])
+        print(p_count)
+        print(s_count)
 
-            if len(currWindow) > length:
-                currWindow.pop(0) #Removing leftist character
+        for right in range(len(p) - 1, len(s)):
             
-            if sorted(currWindow) == sorted(p):
-                res.append(left) #Check if the same and append first character
+            #Expand window
+            s_count[s[right]] += 1
+
+            #Check if the same
+            if s_count == p_count:
+                res.append(left)
             
-            if len(currWindow) == length:
-                left += 1 #Increase left pointer
-        
+            #Shrink window
+            s_count[s[left]] -= 1
+
+            if s_count[s[left]] == 0:
+                del s_count[s[left]]
+            
+            left += 1
+
         return res
-
 
 
 
