@@ -7,18 +7,19 @@
 class Solution:
     def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> Optional[ListNode]:
         
-        #If empty
+        #Base Case
         if not headA or not headB:
             return None
         
-        curr1 = headA
-        curr2 = headB
+        a = headA
+        b = headB
 
-        #Pointers dont equal each other. If curr1 is not None, curr1.next else if curr1 is None, curr1 = headB
-        while curr1 != curr2:
-            curr1 = curr1.next if curr1 else headB
-            curr2 = curr2.next if curr2 else headA
-        
-        return curr1
+        while a != b:
+            a = a.next if a else headB
+            b = b.next if b else headA
             
+        return a
+
+
         
+
