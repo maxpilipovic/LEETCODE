@@ -1,46 +1,43 @@
 class Solution:
     def exist(self, board: List[List[str]], word: str) -> bool:
         
+        temp = word[0]
+        print(temp)
+
         rows = len(board)
         cols = len(board[0])
-        directions = [(0, -1), (0, 1), (-1, 0), (1, 0)] #Up, Down, Left, Right
+        directions = [(0, -1), (0, 1), (1, 0), (-1, 0)] #Up, Down, Right, Left
 
-        print(rows)
-        print(cols)
-
-        def backtrack(row, col, index, visited):
+        def dfs(r, c, visited, index):
+            
+            if (r < 0) or (r >= rows) or (c < 0) or (c >= cols) or board[r][c] != word[index] or (r, c) in visited:
+                return False
             
             #Base Case
-            if index == len(word) - 1:
+            if len(word) - 1 == index:
+                #Out of bounds? Past -> word
                 return True
-            
-            visited.add((row, col))
 
+            visited.add((r, c))
             #Recursive
-            for dr, dc in directions:
+            for nr, nc in directions:
+                newRow = nr + r
+                newCol = nc + c
 
-                nr = row + dr
-                nc = col + dc
-
-                if 0 <= nr < rows and 0 <= nc < cols and (nr, nc) not in visited and board[nr][nc] == word[index + 1]:
-                    if backtrack(nr, nc, index + 1, visited):
-                        return True
+                #Bounds?
+                if dfs(newRow, newCol, visited, index + 1):
+                    return True
+                
+            visited.remove((r, c))
             
-            visited.remove((row, col))
-
             return False
-        
+
         for row in range(rows):
             for col in range(cols):
-                if board[row][col] == word[0]:
-                    if backtrack(row, col, 0, set()):
+
+                if board[row][col] == temp:
+                    if dfs(row, col, set(), 0):
                         return True
         
         return False
-
-
-
-
-
-
-
+        
