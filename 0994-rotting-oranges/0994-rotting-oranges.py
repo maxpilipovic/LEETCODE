@@ -1,47 +1,42 @@
 from collections import deque
 class Solution:
     def orangesRotting(self, grid: List[List[int]]) -> int:
+        
 
         rows = len(grid)
         cols = len(grid[0])
+        queue = deque()
+        visited = set()
+        resMax = 0
+        freshOranges = 0
+        directions = [(0, -1), (0, 1), (-1, 0), (1, 0)] #North, South, East, West
 
-        queue = deque() #Keep track of our rotten oranges (r, c, 0)
-        freshOranges = 0 #Keep track fresh oranges
-
-        #1 Initialized our queue and kept track of fresh oranges 
-        for r in range(rows):
-            for c in range(cols):
-                if grid[r][c] == 2:
-                    queue.append((r, c, 0))
-                elif grid[r][c] == 1:
+        for row in range(rows):
+            for col in range(cols):
+                if grid[row][col] == 2:
+                    queue.append((row, col, 0))
+                elif grid[row][col] == 1:
                     freshOranges += 1
         
-        #2 Loop through using bfs and make all oranges rotten
-        directions = [(0, 1), (0, -1), (1, 0), (-1, 0)]
-        time = 0
 
         while queue:
 
-            row, col, minutes = queue.popleft()
+            row, col, time = queue.popleft()
 
-            #Update our time
-            time = max(time, minutes)
+            resMax = max(resMax, time)
 
-            for dr, dc in directions:
-                nr = dr + row
-                nc = dc + col
+            for nr, nc in directions:
 
-                if 0 <= nr < rows and 0 <= nc < cols and grid[nr][nc] == 1:
-                    grid[nr][nc] = 2
+                newRow = nr + row
+                newCol = nc + col
+
+                if 0 <= newRow < rows and 0 <= newCol < cols and grid[newRow][newCol] == 1 and (newRow, newCol) not in visited:
+                    visited.add((newRow, newCol))
+                    queue.append((newRow, newCol, time + 1))
                     freshOranges -= 1
-                    queue.append((nr, nc, minutes + 1))
-
+            
         
-        return time if freshOranges == 0 else -1
-        
-
-                
+        return resMax if freshOranges == 0 else -1
 
 
 
-        
