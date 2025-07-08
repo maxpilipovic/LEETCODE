@@ -9,12 +9,13 @@ class Solution:
         #prefixDiff = 0
         totalSum = sum(possible)
         num = 1
+        sumAlice = 0
         while num < len(possible):
             
             #Prefix Sum
             #Slice
-            alicePart = possible[:num]
-            sumAlice = sum(alicePart)
+            #alicePart = possible[:num]
+            sumAlice += possible[num - 1] #Prefixsum
             sumBob = totalSum - sumAlice
             
 
