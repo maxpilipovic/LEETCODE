@@ -1,23 +1,20 @@
 class Solution:
     def maxProduct(self, nums: List[int]) -> int:
         
-        dp_max = [0] * len(nums)
-        dp_min = [0] * len(nums)
-
-        totalVal = nums[0]
-        dp_max[0] = nums[0]
-        dp_min[0] = nums[0]
-
-        for i in range(1, len(nums)):
-            num = nums[i]
-
-            dp_max[i] = max(num, dp_max[i-1] * num, dp_min[i-1] * num)
-            dp_min[i] = min(num, dp_max[i-1] * num, dp_min[i-1] * num)
-            totalVal = max(totalVal, dp_max[i])
-
-        return totalVal
-            
+        currMin = nums[0]
+        currMax = nums[0]
+        globalMax = nums[0]
 
 
+        for num in range(1, len(nums)):
 
-        
+            if nums[num] < 0:
+                currMin, currMax = currMax, currMin
+
+            currMin = min(nums[num], currMin * nums[num])
+            currMax = max(nums[num], currMax * nums[num])
+
+            globalMax = max(globalMax, currMax)
+
+        return globalMax
+
