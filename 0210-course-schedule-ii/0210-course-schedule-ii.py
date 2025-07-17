@@ -1,52 +1,50 @@
+from collections import defaultdict
 class Solution:
     def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
+        
+        def adjList(edges):
+            
+            graph = defaultdict(list)
 
-        #Directed graph
-        #Topological sort
-        def adjList(prerequisites):
-
-            graph = {}
-
-            for i in range(numCourses):
-                graph[i] = []
-
-            for edge in prerequisites:
-                a, b = edge
+            #Generate our values -> []
+            for edge in edges:
+                a,b = edge
 
                 graph[b].append(a)
-            
 
             return graph
-        
-        def dfs(node):
-            if visited[node] == 1:
-                #Cycle detected
-                return True
-            if visited[node] == 2:
-                #Already processed
+
+        def dfs(node, path):
+
+            #Base Case
+            if node in path:
                 return False
-
-            visited[node] = 1
-
+                #Return false (THIS IS CYCLE)
+            
+            #Cycle
+            if node in visited:
+                return True
+            
+            path.add(node)
             for neighbor in graph[node]:
-                if dfs(neighbor):
-                    return True
-
-            visited[node] = 2
+                if not dfs(neighbor, path):
+                    return False
+            
+            path.remove(node)
+            visited.add(node)
             res.append(node)
-            return False
-
+            return True
+            #path.remove(node)
+        
         graph = adjList(prerequisites)
-        visited = [0] * numCourses #0: unvisited #1: visiting #2: visited
+        print(graph)
+        visited = set()
+        path = set()
         res = []
 
-        for node in range(numCourses):
-            if visited[node] == 0:
-                if dfs(node):
+        for course in range(numCourses):
+            if course not in visited:
+                if not dfs(course, path):
                     return []
-    
-        return res[::-1]
-
-
-
         
+        return res[::-1]
