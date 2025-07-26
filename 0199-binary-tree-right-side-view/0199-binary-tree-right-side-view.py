@@ -10,26 +10,31 @@ class Solution:
         
         if not root:
             return []
-
+            
         queue = deque()
         queue.append(root)
         res = []
 
         while queue:
-
+            
             length = len(queue)
+
             for i in range(length):
 
                 node = queue.popleft()
-
+                
+                #Know its right side value
                 if i == length - 1:
                     res.append(node.val)
-                
+            
+                #Append values
                 if node.left:
                     queue.append(node.left)
                 if node.right:
                     queue.append(node.right)
         
         return res
+                    
 
-            
+
+        
