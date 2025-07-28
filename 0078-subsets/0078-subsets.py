@@ -2,16 +2,15 @@ class Solution:
     def subsets(self, nums: List[int]) -> List[List[int]]:
         
         res = []
-        stack = []
-        stack.append([0, []])
 
-        while stack:
-
-            index, listNums = stack.pop()
-            res.append(listNums)
-
-            for i in range(index, len(nums)):
-
-                stack.append((i + 1, listNums + [nums[i]]))
+        def backtrack(i, path):
+            
+            res.append(path[:])
+            for j in range(i, len(nums)):
+                path.append(nums[j])
+                backtrack(j + 1, path)
+                path.pop()
+                
+        backtrack(0, [])
 
         return res
