@@ -1,4 +1,4 @@
-<h2><a href="https://leetcode.com/problems/add-binary">67. Add Binary</a></h2><h3>Easy</h3><hr><p>Given two binary strings <code>a</code> and <code>b</code>, return <em>their sum as a binary string</em>.</p>
+<h2><a href="https://leetcode.com/problems/add-binary/?envType=problem-list-v2&envId=bit-manipulation">67. Add Binary</a></h2><h3>Easy</h3><hr><p>Given two binary strings <code>a</code> and <code>b</code>, return <em>their sum as a binary string</em>.</p>
 
 <p>&nbsp;</p>
 <p><strong class="example">Example 1:</strong></p>
