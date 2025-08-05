@@ -1,36 +1,44 @@
 from collections import deque
 class Solution:
     def numIslands(self, grid: List[List[str]]) -> int:
-        
+
         rows = len(grid)
         cols = len(grid[0])
-        directions = [(0, -1), (0, 1), (1,0), (-1, 0)] #Up, Down, Right, Left
         visited = set()
-        count = 0
+        directions =[(0, -1), (0, 1), (-1, 0), (1, 0)] #Up, Down, Left, Right
+        islandCount = 0
 
-        def bfs(r, c, visited, directions):
-            
+
+        print(rows)
+        print(cols)
+
+        def bfs(row, col, visited, directions):
             queue = deque()
-            queue.append((r, c))
-            visited.add((r, c))
+            queue.append((row, col, visited))
 
             while queue:
+                row, col, visited = queue.pop()
 
-                row, col = queue.popleft()
+                for nRow, nCol in directions:
+                    newRow = row + nRow
+                    newCol = col + nCol
 
-                for nr, nc in directions:
-                    newRow = nr + row
-                    newCol = nc + col
-
-                    if 0 <= newRow < rows and 0 <= newCol < cols and (newRow, newCol) not in visited and grid[newRow][newCol] == "1":
+                    if 0 <= newRow < rows and 0 <= newCol < cols and grid[newRow][newCol] == '1' and (newRow, newCol) not in visited:
                         visited.add((newRow, newCol))
-                        queue.append((newRow, newCol))
-
+                        queue.append((newRow, newCol, visited))
 
         for row in range(rows):
             for col in range(cols):
-                if grid[row][col] == "1" and (row, col) not in visited:
-                    count += 1
+                if grid[row][col] == '1' and (row, col) not in visited:
+                    print("Getting here")
+                    islandCount += 1
+                    visited.add((row, col))
                     bfs(row, col, visited, directions)
-            
-        return count
+
+        return islandCount
+
+        
+
+
+
+        
