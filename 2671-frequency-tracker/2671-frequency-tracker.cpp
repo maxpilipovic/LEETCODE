@@ -26,7 +26,7 @@ public:
         {
             return;
         }
-
+        
         int oldFreq = m_numCount[number];
         int newFreq = m_numCount[number] - 1;
         m_numCount[number] = newFreq;
