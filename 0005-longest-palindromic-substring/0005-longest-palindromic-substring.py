@@ -1,33 +1,23 @@
 class Solution:
     def longestPalindrome(self, s: str) -> str:
-
-        #Check if empty
-        if not s:
-            return ""
         
-        #Sliding window from center, until invalid.
-        def window(left, right):
-            while left >= 0 and right < len(s) and s[left] == s[right]:
-                left -= 1
-                right += 1
-            #Slicing return, [left + 1 -> right] (THE WINDOW)
-            return s[left + 1:right]
+        resIdx, resLen = 0, 0
+        n = len(s)
 
-        longest = ""
-        for i in range(len(s)):
-            #Check even
-            odd = window(i, i)
-            #Check odd
-            even = window(i, i+1)
+        dp = [[False] * n for _ in range(n)]
 
-            #Check the lengths
-            if len(even) > len(longest):
-                longest = even
-            if len(odd) > len(longest):
-                longest = odd
+        for i in range(n - 1, -1, -1):
+            for j in range(i, n):
+                if s[i] == s[j] and (j - i <= 2 or dp[i + 1][j - 1]):
+                    dp[i][j] = True
+                    if resLen < (j - i + 1):
+                        resIdx = i
+                        resLen = j - i + 1
 
-        return longest
-        
+        return s[resIdx : resIdx + resLen]
+
+
+
 
 
 
