@@ -1,9 +1,9 @@
-class Solution(object):
-    def lengthOfLongestSubstring(self, s):
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
 
-        hashy = set()
+        maxNum = 0
         left = 0
-        max_length = 0
+        hashy = set() #To hold numbers of window
 
         for right in range(len(s)):
 
@@ -12,9 +12,9 @@ class Solution(object):
                 left += 1
         
             hashy.add(s[right])
-            max_length = max(max_length, right - left + 1)
+            maxNum = max(maxNum, len(hashy))
         
-        return max_length
+        return maxNum
 
 
         
