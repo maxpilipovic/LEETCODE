@@ -1,26 +1,24 @@
 class Solution:
     def longestCommonSubsequence(self, text1: str, text2: str) -> int:
-        #MEMOIZATION SOLUTION
 
-        memo = {}
+        dp = {}
 
-        def recursion(i, j):
+        def backtrack(i, j):
 
             #Base Case
-            if i == len(text1) or j == len(text2):
+            if i >= len(text1) or j >= len(text2):
                 return 0
             
-            #Check result in memo
-            if (i, j) in memo:
-                return memo[(i, j)]
+            if (i, j) in dp:
+                return dp[(i, j)]
             
             if text1[i] == text2[j]:
-                result = 1 + recursion(i + 1, j + 1)
+                result = 1 + backtrack(i + 1, j + 1)
             else:
-                result = max(recursion(i + 1, j), recursion(i, j + 1))
+                result = max(backtrack(i + 1, j), backtrack(i, j + 1))
 
-            memo[(i, j)] = result
+            dp[(i, j)] = result
             return result
-
-        return recursion(0, 0)
-
+        
+        return backtrack(0, 0)
+        
