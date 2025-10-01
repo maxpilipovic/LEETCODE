@@ -7,26 +7,24 @@ public:
             return 0;
         }
 
-        std::sort(nums.begin(), nums.end());
+        unordered_set<int> hashy(nums.begin(), nums.end());
 
-        for (int i = 1; i < nums.size(); i++)
+        for (int num : hashy)
         {
-            if (nums[i] == nums[i - 1] + 1)
-            {
-                streak += 1;
-            }
-            else if (nums[i] == nums[i - 1])
-            {
-                //Duplicate
-                continue;
-            }
-            else {
-                streak = 1;
-            }
 
-            if (streak > res)
+            //Beginning of a sequence...
+            if (hashy.find(num - 1) == hashy.end())
             {
-                res = streak;
+                int currNum = num;
+                int streak = 1;
+
+                while (hashy.find(currNum + 1) != hashy.end())
+                {
+                    streak += 1;
+                    currNum = currNum + 1;
+                }
+
+                res = std::max(res, streak);
             }
         }
 
@@ -34,6 +32,5 @@ public:
     }
 
 private:
-    int res = 1;
-    int streak = 1;
+    int res = 1; 
 };
