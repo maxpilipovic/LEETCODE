@@ -1,23 +1,40 @@
 class Trie {
 
+
+private:
+
+    struct Node 
+    {
+        bool isWord;
+        unordered_map<char, Node*> children;
+
+        //Constructor
+        Node() : isWord(false) {}
+    };
+
+    Node* root; //Reference to our root.
+
 public:
+    
     Trie() {
         root = new Node();
     }
     
     void insert(string word) {
         
+        //1. Insert a word. 
+        //2. Loop through every char
         Node* curr = root;
 
         for (char c : word)
         {
-            if (curr->map.find(c) == curr->map.end())
+            if (curr->children.find(c) == curr->children.end())
             {
-                //New node (does not exist)
-                curr->map[c] = new Node();
+                //Not found!
+                curr->children[c] = new Node();
             }
-            //Moves the pointer...
-            curr = curr->map[c];
+            //Move to next node..
+            curr = curr->children[c];
         }
         curr->isWord = true;
     }
@@ -27,46 +44,31 @@ public:
 
         for (char c : word)
         {
-            if (curr->map.find(c) == curr->map.end())
+            if (curr->children.find(c) == curr->children.end())
             {
-                //Not found...
                 return false;
             }
-            //Move the pointer
-            curr = curr->map[c];
+            curr = curr->children[c];
         }
 
         return curr->isWord;
     }
     
     bool startsWith(string prefix) {
+        
         Node* curr = root;
 
         for (char c : prefix)
         {
-            if (curr->map.find(c) == curr->map.end())
+            if (curr->children.find(c) == curr->children.end())
             {
-                //Not found
                 return false;
             }
-            //Move the pointer
-            curr = curr->map[c];
+            curr = curr->children[c];
         }
 
         return true;
     }
-
-private:
-    struct Node
-    {
-        bool isWord;
-        unordered_map<char, Node*> map;
-
-        Node() : isWord(false) {}
-
-    };
-
-    Node* root;
 };
 
 /**
