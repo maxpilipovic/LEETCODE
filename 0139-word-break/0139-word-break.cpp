@@ -1,41 +1,94 @@
 class Solution {
+private:
+
+    struct Node
+    {
+        bool isWord;
+        unordered_map<char, Node*> children;
+
+        Node() : isWord(false) {}
+    };
+
+    Node* root;
+
 public:
-    bool wordBreak(string s, vector<string>& wordDict) {
-        
-        unordered_set<string> hashy(wordDict.begin(), wordDict.end());
-        return backtrack(0, s, wordDict, hashy);
 
-
+    Solution() 
+    {
+        root = new Node();
     }
 
-    bool backtrack(int start, string& s, vector<string>& wordDict, unordered_set<string>& hashy)
+    bool wordBreak(string s, vector<string>& wordDict) 
     {
-        if (start == s.size())
+        //Put the word inside...
+
+        for (auto& w : wordDict)
         {
+            insertWord(w);
+        }
+
+        //dfs + memo?
+        //allocate map or vector???
+        unordered_map<int, bool> memo; 
+        return dfs(s, 0, memo);
+    }
+
+    bool dfs(const string s, int index, unordered_map<int, bool> memo)
+    {
+
+        //Base Case???
+        if (index >= s.size())
+        {
+            //We at the end so we know its true...
             return true;
         }
 
-        if (dp.count(start)) 
+        //Memo base case...
+        if (memo.count(index))
         {
-            return dp[start];
+            return memo[index];
         }
 
-        for (int end = start + 1; end <= s.size(); ++end) 
+        Node* curr = root;
+
+        for (int i = index; i < s.size(); i++)
         {
-            //Generate substring
-            string sub = s.substr(start, end - start);
-            if (hashy.count(sub) && backtrack(end, s, wordDict, hashy)) 
+            if (curr->children.find(s[i]) == curr->children.end())
             {
-                dp[start] = true;
-                return true;
+                //If we dont find it..
+                break;
             }
-        }
-        dp[start] = false;
 
-        return false;
+            //Move our pointer...
+            curr = curr->children[s[i]];
+
+            if (curr->isWord && dfs(s, i + 1, memo))
+            {
+                return memo[i] = true;
+            }
+
+
+        }
+
+        return memo[index] = false;
     }
 
-private:
-    unordered_map<int, bool> dp;
+    void insertWord(string s)
+    {
+        Node* curr = root;
+
+        for (char c : s)
+        {
+            //Check if it exists?
+            if (curr->children.find(c) == curr->children.end())
+            {
+                curr->children[c] = new Node();
+            }
+            //Move to next node...
+            curr = curr->children[c];
+        }
+
+        curr->isWord = true;
+    }
 
 };
