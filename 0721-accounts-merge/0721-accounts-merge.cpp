@@ -1,103 +1,96 @@
 class Solution {
 public:
 
-    //1.UNION-FIND
-    //ADJACENCY + DFS. <>
-    unordered_map<string, vector<string>> buildAdjList(vector<vector<string>>& accounts, unordered_map<string, string>& emailToName)
+    Solution() 
     {
-        unordered_map<string, vector<string>> graph;
-        //int n = accounts.size();
+        parent.resize(10001);
+        size.resize(10001, 1);
 
-        for (const auto& acc : accounts)
+        for (int i = 0; i < parent.size(); i++)
         {
-            //Grab our first value
-            string name = acc[0];
-            //1. Check if key value exists.
-            
-            for (int i = 1; i < acc.size(); i++)
-            {
-                for (int j = i + 1; j < acc.size(); j++) 
-                {
-                    graph[acc[i]].push_back(acc[j]);
-                    graph[acc[j]].push_back(acc[i]);
-                }
-                
-                //accounttoName
-                emailToName[acc[i]] = name;
-            }
+            parent[i] = i;
         }
-        return graph;
-    }
-
-    void printGraph(unordered_map<string, vector<string>> graph)
-    {
-        //Print
-        for (const auto& [key, value] : graph)
-        {
-            cout << key << "->";
-        
-            for (int i = 0; i < value.size(); i++)
-            {
-                cout << value[i];
-
-                if (i < value.size() - 1) cout << ", ";
-            }
-            cout << std::endl;
-        }
-    }
-
-    void dfs(string email, unordered_map<string, vector<string>>& graph, unordered_set<string>& visited, vector<string>& currentAccount)
-    {
-        
-        //Base Case
-        if (visited.find(email) != visited.end())
-        {
-            return;
-        }
-
-        visited.insert(email);
-        currentAccount.push_back(email);
-
-        for (const auto& neighbor : graph[email])
-        {
-            dfs(neighbor, graph, visited, currentAccount);
-        }
-
     }
 
     vector<vector<string>> accountsMerge(vector<vector<string>>& accounts) {
-        //Adjacency List
-        unordered_map<string, string> emailToName;
-        unordered_map<string, vector<string>> graph = buildAdjList(accounts, emailToName);
-        vector<vector<string>> res;
-        unordered_set<string> visited;
+        unordered_map<string, int> emailToAccount;
 
-        //Print
-        printGraph(graph);
-
-        //DFS Implementation. <>
-        for (const auto& [email, name] : emailToName)
+        for (int i = 0; i < accounts.size(); i++)
         {
-            if (visited.find(email) == visited.end())
+            //Start from j = 1 cause j = 0 is email...
+            for (int j = 1; j < accounts[i].size(); j++)
             {
-                vector<string> currentAccount;
+                string email = accounts[i][j];
                 
-                //dfs
-                dfs(email, graph, visited, currentAccount);
-
-                //Sort
-                std::sort(currentAccount.begin(), currentAccount.end());
-
-                //Append in specific spot
-                currentAccount.insert(currentAccount.begin(), name);
-                res.push_back(currentAccount);
+                //If email is there already, we union.
+                if (emailToAccount.count(email))
+                {
+                    uunion(i, emailToAccount[email]);
+                }
+                else
+                {
+                    //If not there, add.
+                    emailToAccount[email] = i;
+                }
             }
         }
 
-        return res;
+        unordered_map<int, vector<string>> merged;
+
+        for (auto[email, idx] : emailToAccount)
+        {
+            int root = find(idx);
+            merged[root].push_back(email);
+        }
+
+        vector<vector<string>> result;
+
+        for (auto[idx, vec] : merged)
+        {
+            sort(vec.begin(), vec.end());
+            vector<string> account;
+            account.push_back(accounts[idx][0]);
+            account.insert(account.end(), vec.begin(), vec.end());
+            result.push_back(account);
+        }
+
+        return result;
     }
 
-private:
 
+private:
+    vector<int> parent;
+    vector<int> size;
+
+    int find(int x)
+    {
+        if (parent[x] != x)
+        {
+            return find(parent[x]);
+        }
+
+        return parent[x];
+    }
+
+    void uunion(int x, int y)
+    {
+        int rootX = find(x);
+        int rootY = find(y);
+
+        if(rootX != rootY)
+        {
+
+            if (size[rootX] < size[rootY])
+            {
+                parent[rootY] = rootX;
+                size[rootX] += rootY;
+            }
+            else 
+            {
+                parent[rootX] = rootY;
+                size[rootY] += rootX;
+            }
+        }
+    }
 
 };
