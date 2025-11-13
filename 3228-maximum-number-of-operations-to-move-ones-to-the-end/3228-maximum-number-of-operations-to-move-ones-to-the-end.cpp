@@ -14,7 +14,7 @@ public:
                 countOnes += 1;
             }
 
-            if (s[i] == '1' && s[i + 1] == '0')
+            if (i < n - 1 && s[i] == '1' && s[i + 1] == '0') //NO BOUNDS CHECK?
             {
                 res += countOnes;
                 //countOnes = 0;
