@@ -14,8 +14,9 @@ public:
                 countOnes += 1;
             }
 
-            if (i < n - 1 && s[i] == '1' && s[i + 1] == '0') //NO BOUNDS CHECK?
+            if (i < n && s[i] == '1' && s[i + 1] == '0')
             {
+                cout << i << endl;
                 res += countOnes;
                 //countOnes = 0;
             }
