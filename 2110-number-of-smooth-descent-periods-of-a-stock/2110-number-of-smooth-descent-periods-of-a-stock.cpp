@@ -2,39 +2,25 @@ class Solution {
 public:
     long long getDescentPeriods(vector<int>& prices) 
     {
+        //DP VERSION
         for (int i = 0; i < prices.size(); i++)
         {
-            if (stack.empty())
+            if (i > 0 && prices[i] == prices[i - 1] - 1)
             {
-                stack.push(prices[i]);
+                dp[i] = dp[i - 1] + 1;
             }
-            else if (!stack.empty() && stack.top() == prices[i] + 1)
+            else 
             {
-                //Smooth descent! Append
-                stack.push(prices[i]);
+                dp[i] = 1;
             }
-            else
-            {
-                long long count = stack.size();
-                res += count * (count + 1) / 2;
 
-                while (!stack.empty())
-                {
-                    stack.pop();
-                }
-
-                stack.push(prices[i]);
-            }
+            res += dp[i];
         }
-
-        //Forgot to flush stack??? What's left over
-        long long count = stack.size();
-        res += count * (count + 1) / 2;
 
         return res;
     }
 
 private:
-    std::stack<int> stack;
+    unordered_map<int, long long> dp;
     long long res = 0;
 };
