@@ -44,9 +44,9 @@ public:
                     temp[i] = c;
 
                     //Check in hashy
-                    if (dict.count(temp))
+                    if (hashy.count(temp))
                     {
-                        dict.erase(temp);
+                        hashy.erase(temp);
                         queue.push({temp, count + 1});
                     }
                 }
