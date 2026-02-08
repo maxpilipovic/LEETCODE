@@ -1,4 +1,4 @@
-<h2><a href="https://leetcode.com/problems/balanced-binary-tree">110. Balanced Binary Tree</a></h2><h3>Easy</h3><hr><p>Given a binary tree, determine if it is <span data-keyword="height-balanced"><strong>height-balanced</strong></span>.</p>
+<h2><a href="https://leetcode.com/problems/balanced-binary-tree/?envType=daily-question&envId=2026-02-08">110. Balanced Binary Tree</a></h2><h3>Easy</h3><hr><p>Given a binary tree, determine if it is <span data-keyword="height-balanced"><strong>height-balanced</strong></span>.</p>
 
 <p>&nbsp;</p>
 <p><strong class="example">Example 1:</strong></p>
