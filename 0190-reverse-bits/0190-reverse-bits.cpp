@@ -15,11 +15,12 @@ public:
         
         for (int i = 0; i < 32; i++)
         {
-          int lastBit = n % 2; //Last digit
-          result = result * 2 + lastBit; //Bit shifts left
-          std::cout << result << std::endl; //Bit shifts right
-          n /= 2;
+            int lastBit = n % 2;
+            result = result <<= 1;
+            result += lastBit;
+            n >>= 1;
         }
+
 
         return result;
     }
