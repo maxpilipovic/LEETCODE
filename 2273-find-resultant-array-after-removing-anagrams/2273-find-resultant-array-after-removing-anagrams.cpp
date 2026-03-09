@@ -1,23 +1,24 @@
 class Solution {
 public:
-    vector<string> removeAnagrams(vector<string>& words) {
+    vector<string> removeAnagrams(vector<string>& words) 
+    {
+        
         string prev = "";
 
-        for (auto w : words)
+        for (auto word : words)
         {
-            //Sort
-            string s = w;
+            string s = word;
+
             sort(s.begin(), s.end());
 
             if (s != prev)
             {
-                res.push_back(w);
+                res.push_back(word);
                 prev = s;
             }
         }
 
         return res;
-        
     }
 
 private:
