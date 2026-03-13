@@ -1,31 +1,21 @@
 class Solution {
 public:
-    int finalValueAfterOperations(vector<string>& operations) {
-
-        for (std::string v : operations)
-        {
-            PerformOperation(v, operations);
-        }
-
-        return value;    
-    }
-
-    void PerformOperation(std::string v, vector<string>& operations)
+    int finalValueAfterOperations(vector<string>& operations) 
     {
+        int x = 0;
 
-        if (v == "--X" || v == "X--")
+        for (int i = 0; i < operations.size(); i++)
         {
-            value -= 1;
+            if (operations[i] == "--X" || operations[i] == "X--")
+            {
+                x--;
+            }
+            else
+            {
+                x++;
+            }
         }
-        else
-        {
-            value += 1;
-        }
-        
+
+        return x;
     }
-
-
-private:
-    int value = 0;
-
 };
