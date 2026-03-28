@@ -1,25 +1,30 @@
 class Solution {
 public:
-    int smallestNumber(int n) {
-        
-        //Edge Case
-        if (n == 1)
-        {
-            return 1;
-        }
-
-        return backtrack(n, 1);
-        
-    }
-
-    int backtrack(int n, int x)
+    int smallestNumber(int n) 
     {
-        if (x >= n)
+        int x = n;
+
+        while (true)
         {
-            return x;
+            if (allOnes(x))
+            {
+                return x;
+            }
+
+            x++;
         }
 
-        return backtrack(n, x * 2 + 1);
+        return 0;
     }
 
+    bool allOnes(int x)
+    {
+        while (x > 0)
+        {
+            if ((x & 1) == 0) //Found a 0 bit
+                return false;
+            x >>= 1;
+        }
+        return true;
+    }
 };
