@@ -1,55 +1,64 @@
 class Solution {
 public:
-    int findMaxForm(vector<string>& strs, int m, int n) {
-
+    int findMaxForm(vector<string>& strs, int m, int n) 
+    {
         vector<vector<vector<int>>> dp(
-            strs.size(), vector<vector<int>>(m + 1, vector<int>(n + 1, -1))
+            strs.size(),
+            vector<vector<int>>(m + 1, vector<int>(n + 1, -1))
         );
-    
-        //Do the recursion
-        return recursion(strs, 0, m, n, dp);    
+
+        return dfs(0, n, m, strs, dp);
     }
 
-    int recursion(vector<string>& strs, int index, int numZerosLeft, int numOnesLeft, vector<vector<vector<int>>>& dp)
+    int dfs(int i, int onesLeft, int zerosLeft, vector<string>& strs, vector<vector<vector<int>>>& dp)
     {
 
-        if (index >= strs.size())
+        if (i == strs.size())
         {
+            //get max
             return 0;
         }
 
-        if (dp[index][numZerosLeft][numOnesLeft] != -1)
+        //Memo
+        if (dp[i][zerosLeft][onesLeft] != -1)
         {
-            return dp[index][numZerosLeft][numOnesLeft];
+            return dp[i][zerosLeft][onesLeft];
         }
 
-        //Count zeros and 1's in string
-        int ones = 0;
-        int zeros = 0;
+        pair<int, int> take = findValues(strs[i]);
+        int ones = take.first;
+        int zeros = take.second;
 
-        for (char c : strs[index])
+        //Skip
+        int skip = dfs(i + 1, onesLeft, zerosLeft, strs, dp);
+
+        int pick = 0;
+        if (zerosLeft >= zeros && onesLeft >= ones)
         {
-            if (c == '0')
-            {
-                zeros += 1;
-            }
-            if (c == '1')
-            {
-                ones += 1;
-            }
+            pick = 1 + dfs(i + 1, onesLeft - ones, zerosLeft - zeros, strs, dp);
         }
 
-        //Take or skip?
-        int skip = recursion(strs, index + 1, numZerosLeft, numOnesLeft, dp);
-
-        int take = 0;
-        if (numZerosLeft >= zeros && numOnesLeft >= ones)
-        {
-            take = 1 + recursion(strs, index + 1, numZerosLeft - zeros, numOnesLeft - ones, dp);
-        }
-
-        return dp[index][numZerosLeft][numOnesLeft] = max(take, skip);
+        return dp[i][zerosLeft][onesLeft] = max(pick, skip);
     }
 
-private:
+    std::pair<int, int> findValues(string curr)
+    {
+        
+        std::pair<int, int> x(0, 0); //{ones, zeros}
+
+        for (int i = 0; i < curr.size(); i++)
+        {
+            if (curr[i] == '1')
+            {
+                x.first += 1;
+            }
+            else
+            {
+                x.second += 1;
+            }
+        }
+
+        return x;
+    }
+
 };
