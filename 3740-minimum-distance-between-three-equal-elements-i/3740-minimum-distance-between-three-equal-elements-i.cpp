@@ -4,6 +4,7 @@ public:
     {
         int res = INT_MAX;
 
+        //Edge Case
         if (nums.size() < 3)
         {
             return -1;
