@@ -2,7 +2,7 @@ class Solution {
 public:
     vector<int> maxValue(vector<int>& nums) 
     {
-         int n = nums.size();
+        int n = nums.size();
 
         vector<int> res = nums;
 
