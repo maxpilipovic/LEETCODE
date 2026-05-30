@@ -2,10 +2,10 @@ class Solution {
 public:
     int numOfWays(int n) 
     {
-        
         const long long MOD = 1e9 + 7;
-        std::vector<std::array<long long, 2>> dp(n + 1);
+        vector<std::array<long long, 2>> dp(n + 1);
 
+        //Number of ways to paint 1 row
         //ABA
         dp[1][0] = 6;
 
@@ -19,8 +19,7 @@ public:
         }
 
         return (int)((dp[n][0] + dp[n][1]) % MOD);
+
+
     }
-
-private:
-
 };
