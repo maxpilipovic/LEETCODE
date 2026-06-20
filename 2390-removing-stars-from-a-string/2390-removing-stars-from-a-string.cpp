@@ -1,25 +1,37 @@
 class Solution {
 public:
-    string removeStars(string s) {
-            std::deque<char> stack;
-
-    for (int i = 0; i < s.size(); i++)
-    {   
-        if (s[i] == '*')
-        {
-            stack.pop_front();
-            continue;
-        }
-        stack.push_front(s[i]);
-    }
-
-    std::string result;
-
-    while (!stack.empty())
+    string removeStars(string s) 
     {
-        result += stack.back();
-        stack.pop_back();
+        int n = s.size();
+        std::stack<char> stack;
+
+        for (int i{}; i < n; i++)
+        {
+            //Grab char
+            char c = s[i];
+
+            if (c == '*')
+            {
+                char x = stack.top();
+                stack.pop();
+            }
+            else
+            {
+                stack.push(c);
+            }
+        }        
+
+        while (!stack.empty())
+        {
+            res += stack.top();
+            stack.pop();
+        }   
+
+        reverse(res.begin(), res.end());
+
+        return res;
     }
-    return result;
-    }
+
+private:
+    std::string res = "";
 };
