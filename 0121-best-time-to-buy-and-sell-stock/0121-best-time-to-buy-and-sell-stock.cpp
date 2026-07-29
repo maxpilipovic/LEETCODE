@@ -1,27 +1,20 @@
 class Solution {
 public:
-    int maxProfit(vector<int>& prices) {
-        
-        for (int i = 0; i < prices.size(); i++)
+    int maxProfit(vector<int>& prices) 
+    {
+        int res = INT_MAX;
+        int profit = 0;
+
+        for (int i{}; i < prices.size(); i++)
         {
-            int element = prices[i];
+            //Find min
+            res = std::min(res, prices[i]);
 
-            for (int j = i + 1; j < prices.size(); j++)
-            {
-                int max = prices[j] - element;
+            //Calc price
+            profit = std::max(profit, prices[i] - res);
 
-                res = std::max(res, max);
-            }
         }
 
-        if (res > 0)
-        {
-            return res;
-        }
-
-        return 0;
+        return profit > 0 ? profit : 0;
     }
-
-private:
-    int res = 0;
 };
