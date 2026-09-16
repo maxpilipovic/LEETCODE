@@ -1,4 +1,4 @@
-<h2><a href="https://leetcode.com/problems/count-good-nodes-in-binary-tree">1448. Count Good Nodes in Binary Tree</a></h2><h3>Medium</h3><hr><p>Given a binary tree <code>root</code>, a node <em>X</em> in the tree is named&nbsp;<strong>good</strong> if in the path from root to <em>X</em> there are no nodes with a value <em>greater than</em> X.</p>
+<h2><a href="https://leetcode.com/problems/count-good-nodes-in-binary-tree/?envType=study-plan-v2&envId=leetcode-75">1448. Count Good Nodes in Binary Tree</a></h2><h3>Medium</h3><hr><p>Given a binary tree <code>root</code>, a node <em>X</em> in the tree is named&nbsp;<strong>good</strong> if in the path from root to <em>X</em> there are no nodes with a value <em>greater than</em> X.</p>
 
 <p>Return the number of <strong>good</strong> nodes in the binary tree.</p>
 
