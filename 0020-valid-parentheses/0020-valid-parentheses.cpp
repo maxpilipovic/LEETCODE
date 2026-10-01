@@ -1,36 +1,59 @@
 class Solution {
 public:
-    bool isValid(std::string s) {
+    bool isValid(string s) 
+    {
         
+        int sBracket = 0;
+        int cBracket = 0;
+        int nBracket = 0;
+
         std::stack<char> stack;
 
-        for (int i = 0; i < s.size(); i++)
+        for (char c : s)
         {
-            if (!stack.empty() && (s[i] == '}' || s[i] == ')' || s[i] == ']'))
+            if (c == '(' || c == '[' || c == '{')
             {
-                char c = stack.top();
-                
-                switch (s[i])  // switch on the current closing bracket
-                {
-                    case ')':
-                        if (c != '(') return false;
-                        break;
-                    case '}':
-                        if (c != '{') return false;
-                        break;
-                    case ']':
-                        if (c != '[') return false;
-                        break;
-                }
-
+                stack.push(c);
+            }
+            else if (c == ')' && !stack.empty())
+            {
+                char d = stack.top();
                 stack.pop();
+
+                if (d != '(')
+                {
+                    return false;
+                }
+            }
+            else if (c == ']' && !stack.empty())
+            {
+                char d = stack.top();
+                stack.pop();
+
+                if (d != '[')
+                {
+                    return false;
+                }
+            }
+            else if (c == '}' && !stack.empty())
+            {
+                char d = stack.top();
+                stack.pop();
+
+                if (d != '{')
+                {
+                    return false;
+                }
             }
             else
             {
-                stack.push(s[i]);
+                return false;
             }
-        }
+        }    
 
-        return (stack.size() == 0);
+        return stack.empty();
     }
+
+private:
+
 };
