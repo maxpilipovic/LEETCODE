@@ -29,23 +29,12 @@ public:
         //Count the swaps
         for (int i{}; i < n; i++)
         {
-
-            if (visited[i])
+            while (map[nums[i]] != i)              //wrong number in this chair?
             {
-                continue;
+                int target = map[nums[i]];         //where it belongs
+                std::swap(nums[i], nums[target]);  //send it home
+                swaps++;
             }
-
-            int cycleLen = 0;
-            int j = i;
-
-            while (!visited[j])
-            {
-                visited[j] = true;
-                j = map[nums[j]];
-                cycleLen++;
-            }
-
-            swaps += cycleLen - 1;
         }
 
         return swaps;
