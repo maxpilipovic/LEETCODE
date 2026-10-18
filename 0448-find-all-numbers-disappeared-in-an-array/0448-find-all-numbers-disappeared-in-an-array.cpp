@@ -3,24 +3,25 @@ public:
     vector<int> findDisappearedNumbers(vector<int>& nums) 
     {
         int n = nums.size();
-        unordered_set<int> x;
+
+        vector<bool> seen(n + 1);
+        //bool[] seen = new bool[n + 1];
+
         vector<int> res;
 
         for (int i{}; i < nums.size(); i++)
         {
-            x.insert(nums[i]);
+            int value = nums[i];
+
+            seen[value] = true;
         }
 
-        int num = 1;
-
-        while (num <= n)
+        for (int i = 1; i < seen.size(); i++)
         {
-            if (!x.count(num))
+            if (seen[i] == false)
             {
-                res.push_back(num);
+                res.push_back(i);
             }
-
-            num += 1;
         }
 
         return res;
