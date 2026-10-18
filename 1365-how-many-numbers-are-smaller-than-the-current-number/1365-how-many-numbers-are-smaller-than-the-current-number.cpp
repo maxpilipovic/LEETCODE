@@ -2,20 +2,25 @@ class Solution {
 public:
     vector<int> smallerNumbersThanCurrent(vector<int>& nums) 
     {
-        vector<int> res;
+        int n = nums.size();
 
-        for (int i{}; i < nums.size(); i++)
+        //Vec with size n and all values 0.
+        vector<int> res(n, 0);
+
+        for (int i{}; i < n; i++)
         {
             int local = 0;
-            for (int j{}; j < nums.size(); j++)
+
+            for (int j{}; j < n; j++)
             {
+
                 if (i != j && nums[j] < nums[i])
                 {
                     local += 1;
                 }
             }
 
-            res.push_back(local);
+            res[i] = local;
         }    
 
         return res;
