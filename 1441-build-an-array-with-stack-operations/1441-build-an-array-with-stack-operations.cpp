@@ -2,46 +2,46 @@ class Solution {
 public:
     vector<string> buildArray(vector<int>& target, int n) 
     {
-        int local = 1;
-        std::stack<int> stack;
+        int size = target.size();
         vector<string> res;
+        stack<int> stack;
+
+        int num = 1;
         int index = 0;
 
-        while (local <= n)
+        while (num <= n)
         {
 
-            //Base Case
-            if (target.size() == index)
+            //Base case
+            if (index >= size)
             {
                 break;
             }
             
-            //Push stack
-            stack.push(local);
-            
-            //Add to vec
+            //Push to stack.
+            stack.push(num);
             res.push_back("Push");
 
-            //Int num stack
-            int num = stack.top();
-            
-            //If not target then pop
-            if (num != target[index])
+            //Check if this number is NOT at the top of the stack.
+            if (target[index] != stack.top())
             {
                 stack.pop();
                 res.push_back("Pop");
             }
             else
             {
+                //If it is
                 index += 1;
             }
 
-            local += 1;
+            //Increase num
+            num += 1;
+            
         }
 
         return res;
     }
 
 private:
-
+    
 };
