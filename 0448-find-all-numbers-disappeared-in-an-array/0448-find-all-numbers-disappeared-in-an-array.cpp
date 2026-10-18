@@ -4,23 +4,26 @@ public:
     {
         int n = nums.size();
 
-        vector<bool> seen(n + 1);
         //bool[] seen = new bool[n + 1];
 
         vector<int> res;
 
         for (int i{}; i < nums.size(); i++)
         {
-            int value = nums[i];
+            int index = abs(nums[i]) - 1;
 
-            seen[value] = true;
+            if (nums[index] > 0)
+            {
+                nums[index] = -nums[index];
+            }
+            
         }
 
-        for (int i = 1; i < seen.size(); i++)
+        for (int i{}; i < nums.size(); i++)
         {
-            if (seen[i] == false)
+            if (nums[i] > 0)
             {
-                res.push_back(i);
+                res.push_back(i + 1);
             }
         }
 
