@@ -12,7 +12,6 @@ class Solution {
 public:
     ListNode* reverseList(ListNode* head) 
     {
-
         ListNode* curr = head;
         ListNode* prev = nullptr;
 
@@ -20,6 +19,8 @@ public:
         {
             ListNode* nxt = curr->next;
             curr->next = prev;
+
+            //Move pointers.
             prev = curr;
             curr = nxt;
         }    
