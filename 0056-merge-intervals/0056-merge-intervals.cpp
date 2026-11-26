@@ -1,23 +1,36 @@
 class Solution {
 public:
-    vector<vector<int>> merge(vector<vector<int>>& intervals) 
-    {
-        int n = intervals.size();
-        sort(intervals.begin(), intervals.end());  //Sort by first element lowkey
-        vector<vector<int>> res;
+    vector<vector<int>> merge(vector<vector<int>>& intervals) {
+        
+        std::sort(intervals.begin(), intervals.end());
+        std::vector<vector<int>> res;
 
-        for (auto& interval : intervals)
+        for (int i = 1; i < intervals.size(); i++)
         {
-            if (!res.empty() && interval[0] <= res.back()[1])
+            int a = intervals[i - 1][0];
+            int b = intervals[i - 1][1];
+
+            int c = intervals[i][0];
+            int d = intervals[i][1];
+
+            if (b >= c)
             {
-                res.back()[1] = max(res.back()[1], interval[1]);
+                int min = std::min({a, b, c, d});
+                int max = std::max({a, b, c, d});
+
+                intervals[i] = {min, max};  
             }
             else
             {
-                res.push_back(interval);
+                res.push_back(intervals[i - 1]);
             }
         }
 
+        res.push_back(intervals.back());
+
         return res;
     }
+
+private:
+
 };
